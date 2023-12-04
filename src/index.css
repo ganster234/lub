@@ -1,1 +1,11 @@
-*{margin: 0;padding: 0;}
+* {
+  margin: 0;
+  padding: 0;
+}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* 配置输入框提示词颜色 */
+.inputStyle ::placeholder {  
+  color: #b9b9b9 !important;
+}

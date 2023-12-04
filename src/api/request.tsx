@@ -1,12 +1,6 @@
-// import useTokenStore from "@/store/contextmodel";
-
-export const PROD_URL = "https://uitab.com";
-
 export const base = import.meta.env.PROD
-  ? "https://uitab.com/api"
-  // : "http://192.168.110.65:4000"; //dushuai
-:"https://uitab.com/api"
-// :"http://192.168.110.28:4000"; // zhengbin
+  ? "https://www.dspp666.com"
+  : "https://www.dspp666.com";
 
 /**
  * 请求函数
@@ -20,6 +14,8 @@ export const base = import.meta.env.PROD
  * @param {("json" | "text" | "blob")} [returnType="json"] 返回值的数据类型
  * @return {*}
  */
+import useTokenStore from "../../src/store/token";
+
 export default function request<R>(
   method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE",
   url: string,
@@ -30,7 +26,7 @@ export default function request<R>(
   let config: any = {
     method,
     headers: {
-      Authorization: "Bearer " + 'token',
+      Authorization: "bearer " + useTokenStore.getState().token,
     },
   };
   if (!["GET", "DELETE"].includes(method)) {
@@ -49,7 +45,9 @@ export default function request<R>(
       return res[returnType]();
     } else {
       return res.text().then((err) => {
-        if (res.status === 401) {   //登录过期状态   清空token
+        console.log(err, "err");
+        if (res.status === 401) {
+          //登录过期状态   清空token
           // useTokenStore.getState().changeToken("");
         }
         // toast("danger", err);
