@@ -1,6 +1,6 @@
 export const base = import.meta.env.PROD
-  ? "https://www.dspp666.com"
-  : "https://www.dspp666.com";
+  ? "http://192.168.1.73/v1"
+  : "http://192.168.1.73/v1";
 
 /**
  * 请求函数
@@ -26,7 +26,8 @@ export default function request<R>(
   let config: any = {
     method,
     headers: {
-      Authorization: "bearer " + useTokenStore.getState().token,
+      // Authorization: "bearer " + useTokenStore.getState().token,
+      Token:useTokenStore.getState().token,
     },
   };
   if (!["GET", "DELETE"].includes(method)) {

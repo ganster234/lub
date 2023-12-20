@@ -1,5 +1,4 @@
 import { lazy, Suspense } from "react";
-
 import { createBrowserRouter } from "react-router-dom";
 // 配置路由
 const Pricecontrol = lazy(() => import("./widgets/page/Pricecontrol.tsx")); //价格管理
@@ -7,7 +6,7 @@ const Setpassword = lazy(() => import("./widgets/page/Setpassword.tsx")); //修�
 const USTD = lazy(() => import("./widgets/page/USTD.tsx")); //USTD订单
 const Systemlayout = lazy(() => import("./widgets/page/Systemlayout.tsx")); //系统配置
 
-const route = createBrowserRouter([
+const routeleaking = [
   {
     path: "/",
     element: (
@@ -40,5 +39,7 @@ const route = createBrowserRouter([
       </Suspense>
     ),
   },
-]);
+];
+
+const route = createBrowserRouter(routeleaking);
 export default route;

@@ -3,13 +3,18 @@ import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import route from "../userouter";
 import styled from "@emotion/styled";
+import { usebegin } from "../store/contextmodel";
 const MyMenu = styled(Menu)`
   background-color: #15264d;
   color: #949eb0;
   .ant-menu-item-selected {
+    //点击后样式
     background-color: white !important;
+    /* border-radius: 10px;
+    color: red; */
   }
   .ant-menu-item-active {
+    //鼠标移入后字体颜色
     color: #1677ff !important;
   }
 `;
@@ -32,20 +37,89 @@ function getItem(
 }
 
 const PackingMu = (props: { coll: boolean }) => {
+  // const takestore: any = usebegin();  //可以通过
+  // console.log(takestore);
 
   const [openKeys, setOpenKeys] = useState([window.location.pathname]);
-  const items: MenuItem[] = [
-    getItem("用户价格管理", "/", <img className="w-[14px] h-[14px]" src={openKeys[0] == "/" ? "/MenuIcon/Pricecontrolicon.png" : "/MenuIcon/afterPricecontrolicon.png"} />),
-    getItem("修改密码", "/setpassword", <img className="w-[14px] h-[14px]" src={openKeys[0] == "/setpassword" ? "/MenuIcon/aftersetpasswd.png" : "/MenuIcon/setpasswd.png"} />),
-    getItem("USTD订单", "/ustd", <img className="w-[14px] h-[14px]" src={openKeys[0] == "/ustd" ? "/MenuIcon/afterUSTD.png" : "/MenuIcon/USTD.png"} />),
-    getItem("系统配置", "/systemlayout", <img className="w-[14px] h-[14px]" src={openKeys[0] == "/systemlayout" ? "/MenuIcon/aftersystem.png" : "/MenuIcon/system.png"} />),
-    //   getItem("我是文件", "6", <AppstoreOutlined />, [
-    //     getItem("跳转", "4"),
-    //     getItem("文件", "sub3", null, [
-    //       getItem("子菜单", "/cs"),
-    //       getItem("子菜单2", "8"),
-    //     ]),
-    //   ]),
+
+  const items: any = [
+    getItem(
+      "用户价格管理",
+      "/",
+      <img
+        className="w-[14px] h-[14px]"
+        src={
+          openKeys[0] == "/"
+            ? "/MenuIcon/Pricecontrolicon.png"
+            : "/MenuIcon/afterPricecontrolicon.png"
+        }
+      />
+    ),
+    getItem(
+      "修改密码",
+      "/setpassword",
+      <img
+        className="w-[14px] h-[14px]"
+        src={
+          openKeys[0] == "/setpassword"
+            ? "/MenuIcon/aftersetpasswd.png"
+            : "/MenuIcon/setpasswd.png"
+        }
+      />
+    ),
+    getItem(
+      "USTD订单",
+      "/ustd",
+      <img
+        className="w-[14px] h-[14px]"
+        src={
+          openKeys[0] == "/ustd"
+            ? "/MenuIcon/afterUSTD.png"
+            : "/MenuIcon/USTD.png"
+        }
+      />
+    ),
+    // 配置动态路由还可以通过状态机是否管理员判断
+    true
+      ? getItem(
+          "系统配置",
+          "/systemlayout",
+          <img
+            className="w-[14px] h-[14px]"
+            src={
+              openKeys[0] == "/systemlayout"
+                ? "/MenuIcon/aftersystem.png"
+                : "/MenuIcon/system.png"
+            }
+          />
+        )
+      : "",
+    getItem(
+      "我是文件",
+      "",
+      <img className="w-[14px] h-[14px]" src="/MenuIcon/setpasswd.png" />,
+      [
+        getItem("跳转", "/4"),
+        getItem("文件", "/sub3", null, [
+          getItem("子菜单", "/cs"),
+          getItem("子菜单2", "8"),
+        ]),
+      ]
+    ),
+  ];
+  const user: any = [
+    getItem(
+      "用户价格管理",
+      "/",
+      <img
+        className="w-[14px] h-[14px]"
+        src={
+          openKeys[0] == "/"
+            ? "/MenuIcon/Pricecontrolicon.png"
+            : "/MenuIcon/afterPricecontrolicon.png"
+        }
+      />
+    ),
   ];
 
   return (
@@ -57,10 +131,9 @@ const PackingMu = (props: { coll: boolean }) => {
       <MyMenu
         mode="inline"
         theme="dark"
-        openKeys={openKeys}
-        selectedKeys={openKeys}
-        // onOpenChange={onOpenChange}
-        items={items}
+        defaultSelectedKeys={openKeys}
+        defaultOpenKeys={openKeys}
+        items={true ? items : user} //可以通过此方法判断动态菜单
         onClick={(el) => {
           setOpenKeys(el.keyPath);
           route.navigate(el.key);

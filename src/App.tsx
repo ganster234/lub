@@ -6,6 +6,9 @@ import request from "./api/request";
 import { Button, Input } from "@nextui-org/react";
 import { message } from "antd";
 import useTokenStore from "./store/token";
+
+import zhCN from "antd/locale/zh_CN"; 
+import { ConfigProvider } from "antd";   //配置国际化
 const Element = styled.div`
   width: 100%;
   height: 100vh;
@@ -25,9 +28,10 @@ function Login() {
     if (username == "" || password == "") {
       messageApi.warning("请输入账号密码");
       return;
-    } else { //登录
-      changeToken("登录成功");
-      takestore.settoken("登录成功");
+    } else {
+      //登录
+      changeToken("I5Z9ihGMGRYEb9iiHtUvrIj59Mqr/lpLA1NC5OLo2TruaSFXtvZeSns2paM12U//JpPpHCQRADdHjHf5jK55uMbZGl5Ex+MH4ZGbOcywm6p03HPE+YndfOuVuxeOdeQYJ2ymL0+9jQrHb/h9jaIqjfU6BN2kUsV/nSyQW9N9nBdf32Rd3/bdoW3FY61mYj0SukpPI5N7hWPHG/kwpAWUEYyTI1MjEpxt8S9N4kib1M9zNkZ3Hbu5zGzPU9B+nxD7KtM9fjaXpMh4VYcpgLjBIgANydu3gcy9fP8ZSFtcoVi2sDHJzhYcEV11mtgMXEaC2i0gM1QoadK3fEY4kIuLcTrMXHf0Wk9tCCFGsz4jgoXiKULscCXSGwhnJl3u4q1+B62KPN64QZ/YYZRnfYQqra8D5N/O+DK0AieXh8pUL7CyEsIlfLmmJPj/3JgwEPRR7w6u6gLPTiVTeVFu3zECwaqpefFQZx9cNpElPpXWJn1+k1MjCgSa5TwRbf2ptujs6nfZpMLNWcDEkmAbA8XJqahEMHPjWHOMAkQrV9lvAHc=");
+      takestore.settoken("I5Z9ihGMGRYEb9iiHtUvrIj59Mqr/lpLA1NC5OLo2TruaSFXtvZeSns2paM12U//JpPpHCQRADdHjHf5jK55uMbZGl5Ex+MH4ZGbOcywm6p03HPE+YndfOuVuxeOdeQYJ2ymL0+9jQrHb/h9jaIqjfU6BN2kUsV/nSyQW9N9nBdf32Rd3/bdoW3FY61mYj0SukpPI5N7hWPHG/kwpAWUEYyTI1MjEpxt8S9N4kib1M9zNkZ3Hbu5zGzPU9B+nxD7KtM9fjaXpMh4VYcpgLjBIgANydu3gcy9fP8ZSFtcoVi2sDHJzhYcEV11mtgMXEaC2i0gM1QoadK3fEY4kIuLcTrMXHf0Wk9tCCFGsz4jgoXiKULscCXSGwhnJl3u4q1+B62KPN64QZ/YYZRnfYQqra8D5N/O+DK0AieXh8pUL7CyEsIlfLmmJPj/3JgwEPRR7w6u6gLPTiVTeVFu3zECwaqpefFQZx9cNpElPpXWJn1+k1MjCgSa5TwRbf2ptujs6nfZpMLNWcDEkmAbA8XJqahEMHPjWHOMAkQrV9lvAHc=");
       messageApi.success("登录成功");
     }
   };
@@ -81,7 +85,9 @@ function Login() {
 function App() {
   const takestore: any = usebegin();
   return (
-    <>{!takestore.token ? <Login></Login> : <Afterlogging></Afterlogging>}</>
+    <ConfigProvider locale={zhCN}>   
+      {!takestore.token ? <Login></Login> : <Afterlogging></Afterlogging>}
+    </ConfigProvider>
   );
 }
 

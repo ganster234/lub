@@ -8,16 +8,17 @@ import { RouterProvider } from "react-router-dom";
 import { Layout, Button, theme } from "antd";
 const { Header, Sider, Content } = Layout;
 import route from "../userouter";
-import PackingMu from "../component/Menu";
+import PackingMu from "@/component/Menu";
 import { usebegin } from "../store/contextmodel";
 
 const Afterlogging = () => {
   const takestore: any = usebegin();
-  const [collapsed, setCollapsed] = useState(false);
+  const [collapsed, setCollapsed] = useState(false);   //菜单关闭与展开
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-
+  console.log(route);
+  
   return (
     <Layout style={{ minHeight: "100vh" }}>
       <Sider style={{ background: "#15264D" }} trigger={null} collapsible collapsed={collapsed}>
