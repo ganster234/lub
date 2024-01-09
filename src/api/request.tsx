@@ -27,7 +27,7 @@ export default function request<R>(
     method,
     headers: {
       // Authorization: "bearer " + useTokenStore.getState().token,
-      Token:useTokenStore.getState().token,
+      Token: useTokenStore.getState().token,
     },
   };
   if (!["GET", "DELETE"].includes(method)) {

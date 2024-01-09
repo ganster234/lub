@@ -3,19 +3,21 @@ import type { MenuProps } from "antd";
 import { Menu } from "antd";
 import route from "../userouter";
 import styled from "@emotion/styled";
-import { usebegin } from "../store/contextmodel";
+// import useTokenStore from "@/store/token";
 const MyMenu = styled(Menu)`
-  background-color: #15264d;
+  /* background-color: #15264d; */
   color: #949eb0;
   .ant-menu-item-selected {
     //点击后样式
-    background-color: white !important;
-    /* border-radius: 10px;
-    color: red; */
+    background-color: #f1f0ff !important;
+    border-radius: 0px;
+    color: #453bc8;
+    border-left: 4px solid #695dff;
   }
   .ant-menu-item-active {
     //鼠标移入后字体颜色
-    color: #1677ff !important;
+    border-radius: 0px;
+    color: #7f7ac4 !important;
   }
 `;
 type MenuItem = Required<MenuProps>["items"][number];
@@ -37,11 +39,8 @@ function getItem(
 }
 
 const PackingMu = (props: { coll: boolean }) => {
-  // const takestore: any = usebegin();  //可以通过
-  // console.log(takestore);
-
+  // console.log(useTokenStore.getState().userInfo, ""); //拿到用户信息是否是管理员判断动态路由
   const [openKeys, setOpenKeys] = useState([window.location.pathname]);
-
   const items: any = [
     getItem(
       "用户价格管理",
@@ -124,16 +123,18 @@ const PackingMu = (props: { coll: boolean }) => {
 
   return (
     <div>
-      <div className="text-white text-md mb-2 border-b-1 border-white  font-extrabold flex justify-center h-[64px] items-center ">
-        <img className=" w-[20px] h-[20px] " src="/loginLogo.svg" alt="" />
-        {!props.coll ? <p className="ml-3">胖虎一家亲</p> : <></>}
+      <div className="text-white text-md mb-2 border-b-1 border-white bg-[#8178ff]  font-extrabold flex justify-center h-[64px] items-center ">
+        {!props.coll ? (
+          <p className=" font-black text-[17px] ">新五样系统</p>
+        ) : (
+          <img className=" w-[20px] h-[20px] " src="/loginLogo.svg" alt="" />
+        )}
       </div>
       <MyMenu
         mode="inline"
-        theme="dark"
         defaultSelectedKeys={openKeys}
         defaultOpenKeys={openKeys}
-        items={true ? items : user} //可以通过此方法判断动态菜单
+        items={true ? items : user} //还可以通过此方法判断动态菜单
         onClick={(el) => {
           setOpenKeys(el.keyPath);
           route.navigate(el.key);
