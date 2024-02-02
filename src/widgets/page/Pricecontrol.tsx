@@ -1,30 +1,30 @@
+import { useRef, useState, useEffect } from "react";
+import { produce } from "immer";
+import { payColumns } from "@/store/tableDate";
 import MaterialModal from "@/component/Modal";
 import { Button, Input } from "@nextui-org/react";
 import Pagination from "@/component/Pagination";
-import { useRef, useState, useEffect } from "react";
+
 import { Table } from "antd";
-import request from "@/api/request";
-import { produce } from "immer";
+import { GetUserInfo } from "@/api/useApi";
 export default function Pricecontrol() {
   const pageRef: any = useRef(null); //分页dom
   const [Tabledata, setTabledata] = useState([]); //表格数据
-  const [page, setPage] = useState({ pageNumber: 1, pageSize: 10 }); //页数
+  const [page, setPage] = useState({
+    current: 1, //当前页码
+    pageSize: 10, // 每页数据条数
+  }); //页数
   const [total, setTotal] = useState(0); //总条数
   const [seek, setseek] = useState(""); //搜索
   const [loading, setloading] = useState(false); //表格loading
   useEffect(() => {
     setloading(true);
     // console.log(page, "页数");
-    xuanran();
-  }, [page]); //监听页数是否变化查询
-  const xuanran = () => {
-    request(
-      "GET",
-      `/usdt/list?account=${seek}&status=-1&page=${page.pageNumber}&limit=${page.pageSize}`,
-      {},
-      "json",
-      "json"
-    )
+    getLIst();
+  }, [page]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const getLIst = () => {
+    GetUserInfo({ page: page.current, limit: page.pageSize, account: seek })
       .then((res: any) => {
         if (res.code == 200) {
           setloading(false);
@@ -36,6 +36,17 @@ export default function Pricecontrol() {
         console.log(err, "获取失败");
       });
   };
+  const xuanran = () => {
+    if (page.current === 1) {
+      getLIst();
+    } else {
+      setPage(
+        produce(page, (draft) => {
+          draft.current = 1;
+        })
+      );
+    }
+  };
   const clickOK = (onClose: any) => {
     //弹框点击确定事件
     //onClose子组件弹窗传来数据
@@ -46,7 +57,7 @@ export default function Pricecontrol() {
   };
   const toEnterpage = (val: any) => {
     //子组件点击页
-    // console.log(page,val, "子zzzzz我i");
+    console.log(val, "子zzzzz我i");
     setPage(val); //赋值页码
   };
   return (
@@ -58,16 +69,7 @@ export default function Pricecontrol() {
           setseek(val.target.value);
         }}
         onBlur={() => {
-          //失去焦点查询
-          // console.log(seek, page, "失去焦点");
-          pageRef.current?.childFunction(); //调用子组件方法（回到第一页）
-          setPage(
-            produce(page, (draft) => {
-              draft.pageNumber = 1;
-            })
-          );
-          console.log("进入");
-
+          setloading(true);
           xuanran();
         }}
       ></Input>
@@ -101,29 +103,24 @@ export default function Pricecontrol() {
       <Table
         loading={loading} //表格加载
         className=" max-h-[750px] overflow-auto"
-        pagination={false}
         rowKey="id"
         dataSource={Tabledata}
-        columns={[
-          {
-            title: <div className="text-center">账号</div>,
-            render(_, row: any) {
-              return <div className="text-center">{row.account}</div>;
-            },
-          },
-          {
-            title: <div className="text-center">平台</div>,
-            render(_, row: any) {
-              return <div className="text-center">{row.money}</div>;
-            },
-          },
-          {
-            title: <div className="text-center">平台号</div>,
-            render(_, row: any) {
-              return <div className="text-center">{row.price}</div>;
-            },
-          },
-        ]}
+        // 表格自带分页
+        onChange={(val: any) => {
+          setPage({
+            current: val.current,
+            pageSize: val.pageSize,
+          });
+        }}
+        pagination={{
+          ...page,
+          position: ["bottomCenter"],
+          total: total,
+          hideOnSinglePage: total < 10 ? true : false,
+          showSizeChanger: true,
+          simple: true,
+        }}
+        columns={[...payColumns]}
       />
       <Pagination toEnterpage={toEnterpage} total={total} ref={pageRef} />
     </div>

@@ -6,6 +6,30 @@
 @tailwind components;
 @tailwind utilities;
 /* 配置输入框提示词颜色 */
-.inputStyle ::placeholder {  
+.inputStyle ::placeholder {
   color: #b9b9b9 !important;
+}
+::-webkit-scrollbar-thumb {
+  width: 5px; /* 设置滑块宽度为10像素 */
+  background-color: #aca8a8;
+  border-radius: 50px;
+  height: 5px;
+}
+::-webkit-scrollbar {
+  width: 5px; /* 设置滚动条宽度为10像素 */
+  height: 5px;
+}
+/* 针对所有滚动条轨道设置宽度 */
+::-webkit-scrollbar-track {
+  width: 5px; /* 设置轨道宽度为10像素 */
+  height: 5px;
+}
+/* 表格文字居中 */
+.ant-table-cell {
+  text-align: center !important;
+}
+/* 分页垂直居中 */
+.ant-pagination {
+  display: flex;
+  align-items: center;
 }

@@ -7,7 +7,7 @@ const Setpassword = lazy(() => import("./widgets/page/Setpassword.tsx")); //修�
 const USTD = lazy(() => import("./widgets/page/USTD.tsx")); //USTD订单
 const Systemlayout = lazy(() => import("./widgets/page/Systemlayout.tsx")); //系统配置
 
-// console.log(useTokenStore.getState().userInfo, "");   //拿到用户信息是否是管理员判断动态路由
+// console.log(useTokenStore.getState().userInfo, "判断");   //拿到用户信息是否是管理员判断动态路由
 
 const routeleaking = [
   {

@@ -1,6 +1,6 @@
 export const base = import.meta.env.PROD
-  ? "http://192.168.1.73/v1"
-  : "http://192.168.1.73/v1";
+  ? "https://api.afei567.com/v1"    //生产环境
+  : "https://api.afei567.com/v1";   //开发环境
 
 /**
  * 请求函数
@@ -41,6 +41,7 @@ export default function request<R>(
       }
     }
   }
+  ///////////////////////////////////////////方法一抛错式登录过期///////////////////////////////////////////////////
   return fetch(`${base}${url}`, config).then((res) => {
     if (res.status >= 200 && res.status < 400) {
       return res[returnType]();
@@ -56,4 +57,29 @@ export default function request<R>(
       });
     }
   }) as Promise<R>;
+  ///////////////////////////////////////////方法二请求体式返回状态码登录过期///////////////////////////////////////////////////
+  // return fetch(`${base}${url}`, config).then(async (res) => {
+  //   // 在这里将响应体转换为 JSON 格式
+  //   const responseData = await res.json();
+  //   if (res.status >= 200 && res.status < 400) {
+  //     // 返回已经解析的 JSON 数据
+  //     if (responseData.code === 40001) {
+  //       message.warning("登录过期，请重新登录");
+  //       setTimeout(() => {
+  //         localStorage.removeItem("token");
+  //         location.reload();
+  //       }, 1500);
+  //     }
+  //     return responseData;
+  //   } else {
+  //     // 在处理错误时使用 responseData
+  //     console.log(responseData, "errorData");
+
+  //     // 这里可以继续使用 responseData 处理其他逻辑
+  //     // ...
+
+  //     // 返回 Promise.reject(responseData) 表示请求失败
+  //     return Promise.reject(responseData);
+  //   }
+  // }) as Promise<R>;
 }
