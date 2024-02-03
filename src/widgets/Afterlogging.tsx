@@ -52,7 +52,7 @@ const Afterlogging = () => {
                 localStorage.clear();
                 location.reload();
               }}
-              className="cursor-pointer hover:text-[red]"
+              className="logOff cursor-pointer hover:text-[red]"
             >
               <LogoutOutlined /> 退出
             </p>
