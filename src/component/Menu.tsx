@@ -127,7 +127,17 @@ const PackingMu = (props: { coll: boolean }) => {
         {!props.coll ? (
           <p className=" font-black text-[17px] ">系统框架</p>
         ) : (
-          <img className=" w-[20px] h-[20px] " src="/loginLogo.svg" alt="" />
+          // <img className=" w-[20px] h-[20px] " src="/loginLogo.svg" alt="" />
+          <div className="cube-box48">
+            <div className="cube48">
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
+          </div>
         )}
       </div>
       <MyMenu
