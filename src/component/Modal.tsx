@@ -59,9 +59,13 @@ export default function MaterialModal(props: {
               >
                 取消
               </Button>
-              <Button color="primary" size="sm" onPress={(()=>{
-                props?.affirm(onClose)  //调用父组件方法
-              })}>
+              <Button
+                color="primary"
+                size="sm"
+                onPress={() => {
+                  props?.affirm(onClose); //调用父组件方法
+                }}
+              >
                 {props.configuration.footrBut}
               </Button>
             </ModalFooter>

@@ -49,6 +49,7 @@ const Afterlogging = () => {
             <p
               onClick={() => {
                 //退出登录
+                route.navigate("/");
                 localStorage.clear();
                 location.reload();
               }}

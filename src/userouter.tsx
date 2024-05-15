@@ -1,29 +1,32 @@
 import { lazy, Suspense } from "react";
 import { createBrowserRouter } from "react-router-dom";
-// import useTokenStore from "./store/token";
-// 配置路由
-const Pricecontrol = lazy(() => import("./widgets/page/Pricecontrol.tsx")); //价格管理
-const Setpassword = lazy(() => import("./widgets/page/Setpassword.tsx")); //修改密码
-const USTD = lazy(() => import("./widgets/page/USTD.tsx")); //USTD订单
-const Systemlayout = lazy(() => import("./widgets/page/Systemlayout.tsx")); //系统配置
+import useTokenStore from "./store/token";
 
-// console.log(useTokenStore.getState().userInfo, "判断");   //拿到用户信息是否是管理员判断动态路由
+// 动态导入组件
+const Pricecontrol = lazy(() => import("./widgets/page/Pricecontrol.tsx"));
+const Setpassword = lazy(() => import("./widgets/page/Setpassword.tsx"));
+const USTD = lazy(() => import("./widgets/page/USTD.tsx"));
+const Systemlayout = lazy(() => import("./widgets/page/Systemlayout.tsx"));
+const NotFound = lazy(() => import("./widgets/page/NotFound.tsx")); // 404 页面
 
-const routeleaking = [
+// 获取用户信息
+const userInfo: any = useTokenStore.getState().userInfo;
+
+// 路由配置
+const routeConfig = [
   {
     path: "/",
     element: (
       <Suspense fallback={<div>⌛加载中...</div>}>
-        <Pricecontrol></Pricecontrol>
+        <Pricecontrol />
       </Suspense>
     ),
   },
-  {},
   {
     path: "/setpassword",
     element: (
       <Suspense fallback={<div>⌛加载中...</div>}>
-        <Setpassword></Setpassword>
+        <Setpassword />
       </Suspense>
     ),
   },
@@ -31,7 +34,7 @@ const routeleaking = [
     path: "/ustd",
     element: (
       <Suspense fallback={<div>⌛加载中...</div>}>
-        <USTD></USTD>
+        <USTD />
       </Suspense>
     ),
   },
@@ -39,10 +42,28 @@ const routeleaking = [
     path: "/systemlayout",
     element: (
       <Suspense fallback={<div>⌛加载中...</div>}>
-        <Systemlayout></Systemlayout>
+        <Systemlayout />
+      </Suspense>
+    ),
+    roles: ["管理员"], // 指定该路由的角色
+  },
+  {
+    path: "*", // 匹配所有未定义的路径
+    element: (
+      <Suspense fallback={<div>⌛加载中...</div>}>
+        <NotFound />
       </Suspense>
     ),
   },
 ];
-const route = createBrowserRouter(routeleaking);
+
+// 根据用户角色过滤路由
+const filteredRoutes = routeConfig.filter((route) => {
+  if (!route.roles) return true;
+  return route.roles.includes(userInfo.username);
+});
+
+// 创建路由
+const route = createBrowserRouter(filteredRoutes);
+
 export default route;

@@ -23,11 +23,18 @@ export default function Login() {
       message.warning("请输入账号密码");
     } else {
       //登录
-      changeUser({
-        username: "管理员",
-      });
+      if (username == "1") {
+        changeUser({
+          username: "管理员",
+        });
+      } else {
+        changeUser({
+          username: "普通号",
+        });
+      }
+
       changeToken(
-        "keXxC4NSN0+WoP77Mfr37muDpVexh1WjIgjhAwCe5gzuaSFXtvZeSns2paM12U//K6TcRH46sW4h2ONum3vVFOVReHGuVRhYExQoLHmm7E+1d6OvOtN14e8XB2K0MUDLJ2ymL0+9jQrHb/h9jaIqjfU6BN2kUsV/nSyQW9N9nBfrsXtZauTq/UYEvurhyT+T1lmXE9rzQwCuTXGdEVUXwplQr/rZNEHR/3/LQxzYcBGHxuBjuM9CJe0yafKkw/wwFYOMGPhSd8FtPaR1ZgTcHxOrk5bkFKcjCd88cj3Oh8rZmIdlQytJdk5y1ReI+ZKzYb9uwSfhwwUP+Juek/DOEHB8fwoq0pdxPCOTuEgn08rgR9MLFxaLutsEKr0eQSepQV1T1V7YnAUmCu3ENbd88DOQ5ts4mhZrrmWAXhuKe1zVftxRhAk0BjQtcJn1EKOuMZIfBIkraGCETfpVlm0CAQRdzYAU1P/O8IHlqjmQ4RcP4vKbm1Bw6GUMrqU4NA5an8HxDzuYYz8i+tGsOtj4+qsEe1cKLGBzbJrafP2uk57l41qrsukftc5uHEqIkTiB"
+        "keXxC4NSN0+WoP77Mfr37nlb5JZfgCPr4zrEXkpiByZPwOHBBfSp/zwPIlRn/5CDAhH8paKOr9hR/kcfw3zLR5H8oGoF6VL2fPZDfMrDvC8EPQTGysCCnlM8uqABznluDs8cw9+wYR1LINSfsKAopiMSQh9SWIB6jgdI521oFNv2O4/Nvuug+0zn9M8cpMg79fOAapdEdLRYde/CPJ0lNV+mRreoAgqCyUNCgGly/bMzq11Gvpr6HULdYrqIesaH+PEsJ2MP+9o5gaCyA5KnsJMbCHV5+jvYlao2B2XHrTmj5pa9dUqUl6lQocq3Nh6T20KLUWbUWBBc8sKZAs9SyENfoa3A/i2LmLMn8LRm/pjLMZf2K03Cr3SSBUNdjpQ6laWt7LCmr7v7sk6rcP5iQz7uVAVdTmS+XZH45H+hHGwdEe0wAKgnY/ptbyK+scd2aF12gPOStrOBOkHFmGhQA33XnE3OdLrP6PFI7e1Et+CqKB1KEFVYf+0jI7tsLkYaDUHUaBhJdOaVWT2wwvnoSQz7rGxYVZR2v6dq7qaQmQYyJbphF5UyCRw5RjIXB6fedQCcq0j+97Qc6DpWMNejHw=="
       );
       message.success("登录成功");
       location.reload();
@@ -39,7 +46,7 @@ export default function Login() {
         <div className="flex justify-center items-center">
           <img src="/loginLogo.svg" alt="" />
           <p className="inputStyle ml-[20px] text-[31px] text-white  font-extrabold">
-            QQ后台管理系统
+            后台框架
           </p>
         </div>
         <Input

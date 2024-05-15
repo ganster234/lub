@@ -28,8 +28,8 @@ export default function Pricecontrol() {
       .then((res: any) => {
         if (res.code == 200) {
           setloading(false);
-          setTabledata(res.data.data);
-          setTotal(res.data.total);
+          setTabledata(res.data.data.data);
+          setTotal(res.data.data.total);
         }
       })
       .catch((err) => {
