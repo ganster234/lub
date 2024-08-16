@@ -27,7 +27,7 @@ const getItem = (
   icon?: React.ReactNode,
   children?: MenuItem[],
   type?: "group"
-): MenuItem => ({
+): any => ({
   key,
   icon,
   children,

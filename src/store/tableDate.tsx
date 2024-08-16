@@ -12,6 +12,18 @@ export const payColumns = [
     dataIndex: "price",
   },
 ];
+export const Figuretable = [
+  {
+    title: "状态",
+    dataIndex: "status",
+    render: (record: number) => <>{record == 1 ? "处理完成" : record}</>,
+  },
+  {
+    title: "账户",
+    dataIndex: "account",
+    render: (record: number) => <>{record || "-"}</>,
+  },
+];
 export const menus_List = [
   //手机端菜单
   {

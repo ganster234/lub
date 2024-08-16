@@ -4,7 +4,7 @@ import useTokenStore from "./store/token";
 
 // 动态导入组件
 const Pricecontrol = lazy(() => import("./widgets/page/Pricecontrol.tsx"));
-const Setpassword = lazy(() => import("./widgets/page/Setpassword.tsx"));
+const Figure = lazy(() => import("./widgets/page/Figure")); //封装表格试列
 const USTD = lazy(() => import("./widgets/page/USTD.tsx"));
 const Systemlayout = lazy(() => import("./widgets/page/Systemlayout.tsx"));
 const NotFound = lazy(() => import("./widgets/page/NotFound.tsx")); // 404 页面
@@ -26,7 +26,7 @@ const routeConfig = [
     path: "/setpassword",
     element: (
       <Suspense fallback={<div>⌛加载中...</div>}>
-        <Setpassword />
+        <Figure />
       </Suspense>
     ),
   },

@@ -92,9 +92,9 @@ export default function LoginRegistration() {
         });
       } else {
         changeUser({
-          username: "管理员",
+          username: "普通号",
         });
-        changeToken("545564");
+        changeToken("dc6e13b90b4bd1515923e1171100ea25");
         location.reload();
         if (takestore.disclosedBallot) {
           //记住密码
@@ -116,8 +116,6 @@ export default function LoginRegistration() {
         //       takestore.setcurtain(data.username);
         //       takestore.setencipherment(data.password);
         //     }
-        //   } else {
-        //     message.warning(res.msg);
         //   }
         // });
       }
@@ -144,8 +142,6 @@ export default function LoginRegistration() {
           if (res.code == 200) {
             message.success("注册成功");
             switchover("登录");
-          } else {
-            message.warning(res.msg);
           }
         });
       }
