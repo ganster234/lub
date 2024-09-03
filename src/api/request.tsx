@@ -41,6 +41,10 @@ export default function request<R>(
         config.body.append(key, data[key]);
       }
     }
+  } else if (method === "GET" && data) {
+    //处理GET请求
+    const params = new URLSearchParams(data).toString();
+    url += `?${params}`;
   }
   ///////////////////////////////////////////方法一抛错式登录过期///////////////////////////////////////////////////
   // return fetch(`${base}${url}`, config).then((res) => {
@@ -72,7 +76,7 @@ export default function request<R>(
         }, 1500);
       }
       // 如果不等于200，说明请求后端判断，弹出后端返回错误信息
-      if (responseData.code !== 0) {   
+      if (responseData.code !== 0) {
         message.warning(responseData.msg);
       }
       return responseData;

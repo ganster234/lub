@@ -5,41 +5,38 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   LogoutOutlined,
+  FullscreenOutlined,
+  FullscreenExitOutlined,
 } from "@ant-design/icons";
 import { Button } from "@nextui-org/react";
 import { menus_List } from "@/store/tableDate";
 const { Header, Sider, Content } = Layout;
 import route from "../userouter";
 import PackingMu from "@/component/Menu";
+import { goFullScreen, exitFullScreen, useWindowWidth } from "@/store/utile";
 
 const Afterlogging = () => {
+  const windowWidth = useWindowWidth(); //监听页面宽度
   const [routeUrl, setrouteUrl] = useState(""); //路由信息(手机端点击搞亮)
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth); //监听页面宽度（做适配）
   const [collapsed, setCollapsed] = useState(false); //菜单关闭与展开
+  const [amplification, setamplification] = useState(false); //是否放大页面
   const {
     token: { colorBgContainer },
   } = theme.useToken();
-  const handleResize = () => {
-    //监听页面款度函数
-    setWindowWidth(window.innerWidth);
-    if (window.innerWidth < 800) {
-      setCollapsed(true);
+  const bigandSmle = (val: string) => {
+    if (val === "放大") {
+      setamplification(true);
+      goFullScreen();
     } else {
-      setCollapsed(false);
+      setamplification(false);
+      exitFullScreen();
     }
   };
-  useEffect(() => {
-    window.addEventListener("resize", handleResize); //监听页面宽度
-    // 组件卸载时移除事件监听，以防内存泄漏
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
   return (
     <Layout style={{ minHeight: "100vh" }}>
       {windowWidth > 600 ? (
         <Sider
-          style={{ background: "#FFFFFF" }}
+          style={{ background: "#20222a" }}
           trigger={null}
           collapsible
           collapsed={collapsed}
@@ -100,8 +97,15 @@ const Afterlogging = () => {
             </Popover>
           )}
 
-          <div className="mr-[34px] flex">
-            <p className=" mr-5 ">你好，用户~~</p>
+          <div className="mr-[34px] flex items-center">
+            <p className="text-[20px] cursor-pointer ">
+              {amplification ? (
+                <FullscreenExitOutlined onClick={() => bigandSmle("缩小")} />
+              ) : (
+                <FullscreenOutlined onClick={() => bigandSmle("放大")} />
+              )}
+            </p>
+            <p className="mx-5">你好，用户~~</p>
             <p
               onClick={() => {
                 //退出登录

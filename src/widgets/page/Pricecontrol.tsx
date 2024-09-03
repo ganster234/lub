@@ -6,7 +6,6 @@ import { Button, Input } from "@nextui-org/react";
 import Pagination from "@/component/Pagination";
 
 import { Table } from "antd";
-import { GetUserInfo } from "@/api/useApi";
 export default function Pricecontrol() {
   const pageRef: any = useRef(null); //分页dom
   const [Tabledata, setTabledata] = useState([]); //表格数据
@@ -24,17 +23,17 @@ export default function Pricecontrol() {
   }, [page]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getLIst = () => {
-    GetUserInfo({ page: page.current, limit: page.pageSize, account: seek })
-      .then((res: any) => {
-        if (res.code == 200) {
-          setloading(false);
-          setTabledata(res.data.data.data);
-          setTotal(res.data.data.total);
-        }
-      })
-      .catch((err) => {
-        console.log(err, "获取失败");
-      });
+    // GetUserInfo({ page: page.current, limit: page.pageSize, account: seek })
+    //   .then((res: any) => {
+    //     if (res.code == 200) {
+    //       setloading(false);
+    //       setTabledata(res.data.data.data);
+    //       setTotal(res.data.data.total);
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err, "获取失败");
+    //   });
   };
   const xuanran = () => {
     if (page.current === 1) {

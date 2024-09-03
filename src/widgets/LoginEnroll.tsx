@@ -12,7 +12,7 @@ const Element = styled.div`
   background-image: url("/loginback.jpg");
   background-size: cover;
 `;
-export default function Login() {
+export default function Login() {  //1号登录只有登录无注册
   const [username, setusername] = useState(""); //账号
   const [password, setpassword] = useState(""); //密码
 

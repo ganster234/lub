@@ -1,6 +1,8 @@
 import Afterlogging from "./widgets/Afterlogging";
 // import LoginEnroll from "./widgets/LoginEnroll";
-import LoginEnrolltow from "./widgets/LoginEnrolltow"; //第二个登录列子
+import LoginEnrolltow from "./widgets/LoginEnrolltow"; //第二个登录（山)
+// import LoginEnrollthree from './widgets/LoginEnrollthree'  //第三登录 （小圆点）
+
 import useTokenStore from "./store/token";
 import zhCN from "antd/locale/zh_CN";
 import { ConfigProvider } from "antd"; //配置国际化

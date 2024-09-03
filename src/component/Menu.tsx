@@ -6,16 +6,22 @@ import styled from "@emotion/styled";
 import useTokenStore from "@/store/token";
 
 const MyMenu = styled(Menu)`
-  color: #949eb0;
+  background-color: #20222a;
+  .ant-menu-item {
+    color: white;
+  }
+  .ant-menu-submenu-title {
+    color: white;
+  }
   .ant-menu-item-selected {
     background-color: #f1f0ff !important;
     border-radius: 0px;
-    color: #453bc8;
+    color: #453bc8 !important;
     border-left: 4px solid #695dff;
   }
   .ant-menu-item-active {
     border-radius: 0px;
-    color: #7f7ac4 !important;
+    color: #2773f2 !important;
   }
 `;
 
@@ -34,8 +40,12 @@ const getItem = (
   label,
   type,
 });
-
-const menuConfig = [
+export interface Menu_Item {
+  label: string;
+  key: string;
+  icon?: string;
+}
+export const menuConfig = [
   {
     label: "未封装表格试列",
     key: "/",
@@ -121,9 +131,10 @@ const PackingMu = (props: { coll: boolean }) => {
 
   return (
     <div>
-      <div className="text-white text-md mb-2 border-b-1 border-white bg-[#8178ff] font-extrabold flex justify-center h-[64px] items-center">
+      <div className="text-white text-md mb-2 border-b-1 border-white bg-[#20222a] font-extrabold flex justify-center h-[64px] items-center">
         {!props.coll ? (
-          <p className="font-black text-[17px]">系统框架</p>
+          // <p className="font-black text-[17px]">后 台 管 理</p>
+          <p className="font-black text-[17px]">豪 祖</p>
         ) : (
           <div className="cube-box48">
             <div className="cube48">
@@ -139,6 +150,7 @@ const PackingMu = (props: { coll: boolean }) => {
       </div>
       <MyMenu
         mode="inline"
+        theme="light"
         defaultSelectedKeys={openKeys}
         defaultOpenKeys={openKeys}
         items={menuItems}

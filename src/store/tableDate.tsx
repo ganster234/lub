@@ -28,14 +28,14 @@ export const menus_List = [
   //手机端菜单
   {
     key: "/",
-    label: "微信订单",
-  },
-  {
-    key: "/ustd",
-    label: "身份绑定",
+    label: "USTD订单",
   },
   {
     key: "/setpassword",
-    label: "账号绑定",
+    label: "封装表格试列",
   },
+  // {
+  //   key: "/setpassword",
+  //   label: "账号绑定",
+  // },
 ];

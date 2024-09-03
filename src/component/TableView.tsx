@@ -91,6 +91,7 @@ const TableView = forwardRef<TableViewHandle, TableViewProps<any>>(
       setSelectedRowKeys,
       state,
     }));
+    const [afterfenye, setafterfenye] = useState({});
     const [messageApi, contextHolder] = message.useMessage();
     const [height, setHeight] = useState(800);
     const [loading, setLoading] = useState(false);
@@ -127,7 +128,7 @@ const TableView = forwardRef<TableViewHandle, TableViewProps<any>>(
         setHeight(getResidueHeightByDOMRect());
       };
       if (api) {
-        getList(apiState);
+        getList(afterfenye);
       } else {
         setState({
           total: 1,
@@ -164,6 +165,9 @@ const TableView = forwardRef<TableViewHandle, TableViewProps<any>>(
         PageSize: pageSize,
         ...state,
       });
+      if (state) {
+        setafterfenye(state);
+      }
       handleResult(result);
     };
 
@@ -182,7 +186,8 @@ const TableView = forwardRef<TableViewHandle, TableViewProps<any>>(
       handleResult(result);
     };
 
-    const handleResult = (result: any) => {  //发送请求赋值
+    const handleResult = (result: any) => {
+      //发送请求赋值
       const { code, data, msg } = result || {};
       const { all, list } = data || {};
       setLoading(false);

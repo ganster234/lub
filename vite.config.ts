@@ -9,9 +9,9 @@ export default defineConfig({
       "@": "/src",
     },
   },
-  // server:{  //暴露端口
-  //   host:'0.0.0.0',//解决vite use--host to expose
-  //   port:8081,//配置端口
-  //   open:true,//配置默认打开浏览器
-  // },
+  server:{  //暴露端口
+    host:'0.0.0.0',//解决vite use--host to expose
+    port:8081,//配置端口
+    open:true,//配置默认打开浏览器
+  },
 })
