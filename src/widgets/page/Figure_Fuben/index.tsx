@@ -14,7 +14,7 @@ export default function Together() {
   };
   return (
     <div>
-      <div className=" flex  ">
+      <div className=" flex">
         <Input
           className=" w-[200px] "
           placeholder="账户名称查询"

@@ -133,8 +133,7 @@ const PackingMu = (props: { coll: boolean }) => {
     <div>
       <div className="text-white text-md mb-2 border-b-1 border-white bg-[#20222a] font-extrabold flex justify-center h-[64px] items-center">
         {!props.coll ? (
-          // <p className="font-black text-[17px]">后 台 管 理</p>
-          <p className="font-black text-[17px]">豪 祖</p>
+          <p className="font-black text-[17px]">LuBi</p>
         ) : (
           <div className="cube-box48">
             <div className="cube48">
