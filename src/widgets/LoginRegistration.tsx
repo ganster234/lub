@@ -5,7 +5,7 @@ import { Login, register } from '@/api/useApi'
 import { produce } from 'immer'
 import { message } from 'antd'
 import { Input } from '@nextui-org/react'
-import { Button, Checkbox } from '@nextui-org/react'
+import { Button } from '@nextui-org/react'
 import useTokenStore from '@/store/token'
 import { useWindowWidth } from '@/store/utile'
 
@@ -278,19 +278,6 @@ export default function LoginRegistration() {
             <Input size="lg" placeholder="请输入验证码" />
             {/* 验证码图片 */}
             <div className="bg-orange-600 w-[100px] h-full">验证🐎</div>
-          </div>
-
-          <br />
-          <div className=" flex justify-between ">
-            <Checkbox
-              color={'primary'}
-              isSelected={takestore.disclosedBallot}
-              onValueChange={(val: boolean) => {
-                takestore.setdisclosedBallot(val)
-              }}
-            >
-              记住账户
-            </Checkbox>
           </div>
           <Button
             className={'rounded-[5px] w-full text-[16px] h-[50px] mt-[70px] ' + 'bg-[#695DFF]'}
