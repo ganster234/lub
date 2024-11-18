@@ -167,7 +167,7 @@ export default function LoginRegistration() {
       {contextHolder}
       <div
         className={
-          'flex items-center h-full relative LoginBox justify-center min-w-[300px] ' +
+          'flex items-center h-full LoginBox justify-center min-w-[300px] ' +
           (windowWidth < 700 ? 'w-[100%]' : 'w-[45%]')
         }
       >
@@ -176,7 +176,7 @@ export default function LoginRegistration() {
           <div className="flex items-center gap-4 mb-[44px] text-[22px] font-bold">
             <h2
               className={`cursor-pointer text-[#092F65] ${
-                data.type == '登录' ? '' : 'text-[20px] text-slate-600'
+                data.type == '登录' ? '' : 'text-[20px] text-[#677187]'
               }`}
               onClick={() => switchover('登录')}
             >
@@ -184,7 +184,7 @@ export default function LoginRegistration() {
             </h2>
             <h2
               className={`cursor-pointer text-[#092F65] ${
-                data.type != '登录' ? '' : 'text-[20px] text-slate-600'
+                data.type != '登录' ? '' : 'text-[20px] text-[#677187]'
               }`}
               onClick={() => switchover('注册')}
             >
@@ -257,20 +257,6 @@ export default function LoginRegistration() {
                     }}
                   />
                 </form>
-              </div>
-              <div className="codep">
-                <Input
-                  size="lg"
-                  value={data.invitationCode}
-                  placeholder="请输入邀请码"
-                  onChange={(val: any) => {
-                    setdata(
-                      produce(pre => {
-                        pre.invitationCode = val.target.value
-                      })
-                    )
-                  }}
-                />
               </div>
             </>
           )}
