@@ -8,6 +8,7 @@ import { Input } from '@nextui-org/react'
 import { Button, Checkbox } from '@nextui-org/react'
 import useTokenStore from '@/store/token'
 import { useWindowWidth } from '@/store/utile'
+
 // 四号登录 （左边右边图片）
 const Element = styled.div`
   height: 100vh;
@@ -42,6 +43,7 @@ const Element = styled.div`
     }
   }
 `
+
 export default function LoginRegistration() {
   const windowWidth = useWindowWidth() //监听页面宽度
   const changeToken = useTokenStore(state => state.changeToken) //调用store
@@ -171,10 +173,26 @@ export default function LoginRegistration() {
       >
         <div className={'chldbox  ' + (windowWidth < 700 ? 'baidushowd' : 'w-[470px] p-[30px]')}>
           <img className="w-full mb-6" src="/loginBgnav.png" alt="" />
-          <h2 className="mb-[44px] text-[22px] font-bold flex justify-center text-[#092F65] ">
-            {data.type == '登录' ? '账 号 登 录' : '创 建 账 号'}
-          </h2>
+          <div className="flex items-center gap-4 mb-[44px] text-[22px] font-bold">
+            <h2
+              className={`cursor-pointer text-[#092F65] ${
+                data.type == '登录' ? '' : 'text-[20px] text-slate-600'
+              }`}
+              onClick={() => switchover('登录')}
+            >
+              用户登录
+            </h2>
+            <h2
+              className={`cursor-pointer text-[#092F65] ${
+                data.type != '登录' ? '' : 'text-[20px] text-slate-600'
+              }`}
+              onClick={() => switchover('注册')}
+            >
+              注册
+            </h2>
+          </div>
           <div className="codep">
+            <div className="mb-2 ml-2 text-slate-600">账号</div>
             <Input
               size="lg"
               value={data.username}
@@ -189,6 +207,7 @@ export default function LoginRegistration() {
             />
           </div>
           <div className="codep">
+            <div className="mb-2 ml-2 text-slate-600">密码</div>
             <form
               onSubmit={event => {
                 event.preventDefault()
@@ -215,7 +234,7 @@ export default function LoginRegistration() {
               />
             </form>
           </div>
-          {data.type == '注册' ? (
+          {data.type == '注册' && (
             <>
               <div className="codep">
                 <form
@@ -254,9 +273,13 @@ export default function LoginRegistration() {
                 />
               </div>
             </>
-          ) : (
-            <></>
           )}
+          <div className="flex items-center mt-4">
+            <Input size="lg" placeholder="请输入验证码" />
+            {/* 验证码图片 */}
+            <div className="bg-orange-600 w-[100px] h-full">验证🐎</div>
+          </div>
+
           <br />
           <div className=" flex justify-between ">
             <Checkbox
@@ -268,26 +291,6 @@ export default function LoginRegistration() {
             >
               记住账户
             </Checkbox>
-            <div className=" text-[12px] flex  items-center">
-              {data.type == '登录' ? <span className="text-foreground-500">没有账号</span> : <></>}
-              <span
-                className={'ml-2 cursor-pointer ' + 'text-[#695DFF] '}
-                onClick={() => {
-                  switchover(data.type == '登录' ? '注册' : '登录')
-                  setdata(
-                    produce(pre => {
-                      pre.username = '' //账号
-                      pre.password = '' //密码
-                      pre.affirmpss = '' //确认密码
-                      pre.invitationCode = '' //邀请码
-                      pre.imgcode = '' //图形验证码
-                    })
-                  )
-                }}
-              >
-                点此{data.type == '登录' ? '注册' : '登录'}
-              </span>
-            </div>
           </div>
           <Button
             className={'rounded-[5px] w-full text-[16px] h-[50px] mt-[70px] ' + 'bg-[#695DFF]'}
@@ -298,12 +301,10 @@ export default function LoginRegistration() {
           </Button>
         </div>
       </div>
-      {windowWidth < 700 ? (
-        <></>
-      ) : (
+      {windowWidth >= 700 && (
         <div
           style={{ backgroundImage: `url('/bgimg.png')` }}
-          className={'w-[55%] h-full flex justify-center items-center ' + 'FromLayer'}
+          className="w-[55%] h-full flex justify-center items-center FromLayer"
         ></div>
       )}
     </Element>
