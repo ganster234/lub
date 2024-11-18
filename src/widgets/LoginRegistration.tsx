@@ -167,7 +167,7 @@ export default function LoginRegistration() {
       {contextHolder}
       <div
         className={
-          'flex items-center h-full LoginBox justify-center min-w-[300px] ' +
+          'flex LoginBox justify-center min-w-[300px] ' +
           (windowWidth < 700 ? 'w-[100%]' : 'w-[45%]')
         }
       >
