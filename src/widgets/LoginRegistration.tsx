@@ -165,16 +165,15 @@ export default function LoginRegistration() {
       {contextHolder}
       <div
         className={
-          ' relative LoginBox flex justify-center min-w-[300px] ' +
+          'flex items-center h-full relative LoginBox justify-center min-w-[300px] ' +
           (windowWidth < 700 ? 'w-[100%]' : 'w-[45%]')
         }
       >
-        <img className=" absolute top-0  right-0 w-[200px]" src="/loginBgnav.png" alt="" />
         <div className={'chldbox  ' + (windowWidth < 700 ? 'baidushowd' : 'w-[470px] p-[30px]')}>
+          <img className="w-full mb-6" src="/loginBgnav.png" alt="" />
           <h2 className="mb-[44px] text-[22px] font-bold flex justify-center text-[#092F65] ">
             {data.type == '登录' ? '账 号 登 录' : '创 建 账 号'}
           </h2>
-
           <div className="codep">
             <Input
               size="lg"
