@@ -220,7 +220,7 @@ function UserManagement() {
             label="旧密码"
             rules={[{ required: true, message: '请输入旧密码!' }]}
           >
-            <Input />
+            <Input.Password />
           </Form.Item>
 
           <Form.Item
@@ -228,7 +228,7 @@ function UserManagement() {
             label="新密码"
             rules={[{ required: true, message: '请输入新密码!' }]}
           >
-            <Input />
+            <Input.Password />
           </Form.Item>
 
           <Form.Item
