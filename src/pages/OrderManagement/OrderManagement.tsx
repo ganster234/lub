@@ -126,7 +126,7 @@ function OrderManagement() {
         columns={columns}
         dataSource={data}
         pagination={false} // 禁用分页
-        scroll={{ y: 'calc(100vh - 370px)' }}
+        scroll={{ y: 'calc(100vh - 300px)' }}
       />
 
       {/* 分页器 */}
