@@ -76,7 +76,7 @@ export default function request<R>(
         }, 1500);
       }
       // 如果不等于200，说明请求后端判断，弹出后端返回错误信息
-      if (responseData.code !== 0) {
+      if (responseData.code != 200) {
         message.warning(responseData.msg);
       }
       return responseData;

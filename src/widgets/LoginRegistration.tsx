@@ -101,12 +101,12 @@ export default function LoginRegistration() {
           content: '请输入账号或密码'
         })
       } else {
-        changeUser({
-          username: '普通号'
-        })
-        changeToken('dc6e13b90b4bd1515923e1171100ea25')
-        message.success('登录成功')
-        location.reload()
+        // changeUser({
+        //   username: '普通号'
+        // })
+        // changeToken('dc6e13b90b4bd1515923e1171100ea25')
+        // message.success('登录成功')
+        // location.reload()
         Login({
           User: data.username,
           Pass: data.password,
@@ -272,7 +272,11 @@ export default function LoginRegistration() {
           <div className="flex items-center mt-4">
             <Input size="lg" placeholder="请输入验证码" />
             {/* 验证码图片 */}
-            <div className="bg-orange-600 w-[100px] h-full">验证🐎</div>
+            <img
+              className="h-[45px] rounded-lg ml-2 cursor-pointer"
+              src={verifyData.img}
+              onClick={init}
+            />
           </div>
           <Button
             className={'rounded-[5px] w-full text-[16px] h-[50px] mt-[70px] ' + 'bg-[#695DFF]'}
