@@ -197,6 +197,7 @@ function UserManagement() {
       {/* 编辑弹窗 */}
       <Modal title="编辑用户" open={isModalVisible} onCancel={handleCancel} footer={null}>
         <Form
+          className="mt-4"
           key={currentUser?.Device_Sid} // 使用 key 强制刷新表单
           initialValues={{
             Oldpass: '',
