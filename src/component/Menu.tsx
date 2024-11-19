@@ -67,6 +67,21 @@ export const menuConfig = [
     roles: ["管理员"],
   },
   {
+    label: "订单管理",
+    key: "/order-management",
+    icon: "system",
+  },
+  {
+    label: "资金管理",
+    key: "/fund-management",
+    icon: "USTD",
+  },
+  {
+    label: "用户管理",
+    key: "/user-management",
+    icon: "Pricecontrolicon",
+  },
+  {
     label: "我是文件",
     key: "/file",
     icon: "setpasswd",
