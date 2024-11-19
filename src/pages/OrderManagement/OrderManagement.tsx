@@ -75,7 +75,7 @@ function OrderManagement() {
       width: 70
     },
     {
-      title: '订单编号',
+      title: '账号sid',
       dataIndex: 'Device_Sid',
       key: 'Device_Sid'
     },
@@ -95,9 +95,14 @@ function OrderManagement() {
       key: 'Device_money'
     },
     {
-      title: '时长',
+      title: '时间',
       dataIndex: 'Device_time',
       key: 'Device_time'
+    },
+    {
+      title: '冷却次数',
+      dataIndex: 'Device_timenum',
+      key: 'Device_timenum'
     },
     {
       title: '昵称',
@@ -105,9 +110,19 @@ function OrderManagement() {
       key: 'Device_nick'
     },
     {
-      title: '订单状态',
+      title: '状态',
       dataIndex: 'Device_state',
       key: 'Device_state'
+    },
+    {
+      title: '进度',
+      dataIndex: 'Device_jd',
+      key: 'Device_jd'
+    },
+    {
+      title: '操作次数',
+      dataIndex: 'Device_num',
+      key: 'Device_num'
     }
   ]
 
