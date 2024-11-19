@@ -5,20 +5,20 @@ interface UserInfotype {
   account?: string;
 }
 
+//登录
 export const Login = (data: any) => {
-  //登录
   return request("POST", "/UserLogin", data);
 };
+//注册
 export const register = (data: any) => {
-  //注册
-  return request("POST", "/v1/register", data);
+  return request("POST", "/Ouregister", data);
 };
+//验证码
 export const verifyCode = () => {
-  //验证码
   return request("POST", "/AppVerifyCode", {});
 };
+//金额列表
 export const moneyList = (data: UserInfotype) => {
-  //金额列表
   return request(
     "GET",
     `/user/account/order_list?page=${data.page}&page_size=${data.pageSize

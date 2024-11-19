@@ -47,8 +47,7 @@ const Element = styled.div`
 export default function LoginRegistration() {
   const Logininformation = usebegin((state: any) => state.Logininformation)
   const setLogininformation = usebegin((state: any) => state.setLogininformation)
-
-  const changeToken = useTokenStore(state => state.changeToken) //调用store
+  const changeToken = useTokenStore(state => state.changeToken)
 
   const windowWidth = useWindowWidth() //监听页面宽度
 
@@ -71,7 +70,7 @@ export default function LoginRegistration() {
     })
   }
 
-  const goLogin = () => {
+  function goLogin() {
     //登录完成
     if (data.type == '登录') {
       //登录
@@ -118,12 +117,11 @@ export default function LoginRegistration() {
         })
       } else {
         register({
-          account: data.username,
-          password: data.password,
-          password_confirm: data.password
+          User: data.username,
+          Pass: data.password,
+          Compass: data.password
         }).then((res: any) => {
-          console.log(res)
-          if (res.code == 0) {
+          if (res.code == 200) {
             message.success('注册成功')
             switchover('登录')
           } else {
@@ -134,7 +132,7 @@ export default function LoginRegistration() {
     }
   }
 
-  const switchover = (val: string) => {
+  function switchover(val: string) {
     setData(
       produce(pre => {
         pre.type = val
@@ -240,27 +238,30 @@ export default function LoginRegistration() {
               </div>
             </>
           )}
-          <div className="flex items-center mt-4">
-            <Input
-              size="lg"
-              autoComplete=""
-              placeholder="请输入验证码"
-              value={data.imgcode}
-              onChange={(val: any) =>
-                setData(
-                  produce(pre => {
-                    pre.imgcode = val.target.value
-                  })
-                )
-              }
-            />
-            {/* 验证码图片 */}
-            <img
-              className="h-[45px] rounded-lg ml-2 cursor-pointer"
-              src={verifyData.img}
-              onClick={init}
-            />
-          </div>
+          {data.type == '登录' && (
+            <div className="flex items-center mt-4">
+              <Input
+                size="lg"
+                autoComplete=""
+                placeholder="请输入验证码"
+                value={data.imgcode}
+                onChange={(val: any) =>
+                  setData(
+                    produce(pre => {
+                      pre.imgcode = val.target.value
+                    })
+                  )
+                }
+              />
+              {/* 验证码图片 */}
+              <img
+                className="h-[45px] rounded-lg ml-2 cursor-pointer"
+                src={verifyData.img}
+                onClick={init}
+              />
+            </div>
+          )}
+
           <Button
             className={'rounded-[5px] w-full text-[16px] h-[50px] mt-[70px] ' + 'bg-[#695DFF]'}
             color={'primary'}
