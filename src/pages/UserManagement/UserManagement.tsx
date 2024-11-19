@@ -195,8 +195,9 @@ function UserManagement() {
       />
 
       {/* 编辑弹窗 */}
-      <Modal title="编辑用户" visible={isModalVisible} onCancel={handleCancel} footer={null}>
+      <Modal title="编辑用户" open={isModalVisible} onCancel={handleCancel} footer={null}>
         <Form
+          key={currentUser?.Device_Sid} // 使用 key 强制刷新表单
           initialValues={{
             Oldpass: '',
             Pass: '',
@@ -233,7 +234,7 @@ function UserManagement() {
           <Form.Item
             name="Contact"
             label="联系方式"
-            rules={[{ required: true, message: '请输入联系人!' }]}
+            rules={[{ required: true, message: '请输入联系方式!' }]}
           >
             <Input />
           </Form.Item>
