@@ -17,11 +17,21 @@ export const register = (data: any) => {
 export const verifyCode = () => {
   return request("POST", "/AppVerifyCode", {});
 };
+//用户信息
+export const apiuserinfo = () => {
+  return request("POST", "/Userinfo");
+};
+//充值方式
+export const oupayweb = () => {
+  return request("POST", "/Oupayweb");
+};
+
 //金额列表
 export const moneyList = (data: UserInfotype) => {
   return request(
     "GET",
-    `/user/account/order_list?page=${data.page}&page_size=${data.pageSize
+    `/user/account/order_list?page=${data.page}&page_size=${
+      data.pageSize
     }&account=${data.account ? data.account : ""}`
   );
 };

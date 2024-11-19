@@ -5,7 +5,7 @@ import useTokenStore from "./store/token";
 // 动态导入组件
 const Pricecontrol = lazy(() => import("./widgets/page/Pricecontrol.tsx"));
 const Figure = lazy(() => import("./widgets/page/Figure")); //封装表格试列
-const USTD = lazy(() => import("./widgets/page/USTD.tsx"));
+const USTD = lazy(() => import("./widgets/page/Ustd/index.tsx"));   //资金管理
 const Systemlayout = lazy(() => import("./widgets/page/Systemlayout.tsx"));
 const FundManagement = lazy(() => import("./pages/FundManagement/FundManagement"));
 const OrderManagement = lazy(() => import("./pages/OrderManagement/OrderManagement.tsx"));

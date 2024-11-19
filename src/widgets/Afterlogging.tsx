@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { RouterProvider } from "react-router-dom";
 import { Layout, theme } from "antd";
 import {
@@ -20,14 +20,23 @@ import route from "../userouter";
 import PackingMu from "@/component/Menu";
 import { goFullScreen, exitFullScreen, useWindowWidth } from "@/store/utile";
 import Leftsidepopup from "@/component/Leftsidepopup";
+import { apiuserinfo } from "@/api/useApi";
 const Afterlogging = () => {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const windowWidth = useWindowWidth(); //监听页面宽度
   const [collapsed, setCollapsed] = useState(false); //菜单关闭与展开
   const [amplification, setamplification] = useState(false); //是否放大页面
+  const [information, setinformation] = useState<any>({}); //用户信息
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  useEffect(() => {
+    apiuserinfo().then((res: any) => {
+      if (res.code == 200) {
+        setinformation(res.data[0]);
+      }
+    });
+  }, []);
   const bigandSmle = (val: string) => {
     if (val === "放大") {
       setamplification(true);
@@ -94,14 +103,20 @@ const Afterlogging = () => {
 
               <div className="mr-[10px] flex items-center">
                 <p className="text-[#25235C] text-[15px]">
-                  余额：<span className="  text-[red] ">28元</span>
+                  余额：
+                  <span className="  text-[red] ">
+                    {information?.Device_money}元
+                  </span>
                 </p>
                 <div className="w-3 h-full mx-2 bg-[#f5f5f5] text-[#f5f5f5]  ">
                   o
                 </div>
-                <p className=" cursor-pointer text-[#28265e]  font-extrabold text-[16px]">
+                <a
+                  href="/ustd?type=full"
+                  className=" cursor-pointer text-[#28265e]  font-extrabold text-[16px]"
+                >
                   充
-                </p>
+                </a>
                 {windowWidth > 600 && (
                   <>
                     <div className="w-3 h-full mx-2 bg-[#f5f5f5] text-[#f5f5f5]  ">
@@ -128,7 +143,7 @@ const Afterlogging = () => {
                   <PopoverTrigger>
                     <Button className="  bg-transparent  p-0 flex h-[50px]">
                       <img src="/heardeImg.png" alt="" />
-                      {windowWidth > 600 && <p>你好，用户</p>}
+                      {windowWidth > 600 && <p>{information?.Device_name}</p>}
                       <DownOutlined />
                     </Button>
                   </PopoverTrigger>

@@ -56,16 +56,15 @@ export const menuConfig = [
     icon: "setpasswd",
   },
   {
-    label: "USTD订单",
+    label: "资金管理",
     key: "/ustd",
-    icon: "USTD",
+    icon: "capital",
   },
-  {
-    label: "系统配置",
-    key: "/systemlayout",
-    icon: "system",
-    roles: ["管理员"],
-  },
+  // {
+  //   label: "系统配置",
+  //   key: "/systemlayout",
+  //   icon: "system",
+  // },
   {
     label: "订单管理",
     key: "/order-management",
