@@ -67,27 +67,27 @@ function OrderManagement() {
   // 表格列的定义
   const columns = [
     {
-      title: '设备ID',
+      title: '订单编号',
       dataIndex: 'Device_Sid',
       key: 'Device_Sid'
     },
     {
-      title: '设备服务器',
+      title: '游戏区服',
       dataIndex: 'Device_server',
       key: 'Device_server'
     },
     {
-      title: '设备标题',
+      title: '标题',
       dataIndex: 'Device_title',
       key: 'Device_title'
     },
     {
-      title: '金额',
+      title: '价格',
       dataIndex: 'Device_money',
       key: 'Device_money'
     },
     {
-      title: '时间',
+      title: '时长',
       dataIndex: 'Device_time',
       key: 'Device_time'
     },
@@ -97,7 +97,7 @@ function OrderManagement() {
       key: 'Device_nick'
     },
     {
-      title: '状态',
+      title: '订单状态',
       dataIndex: 'Device_state',
       key: 'Device_state'
     }
