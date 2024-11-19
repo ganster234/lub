@@ -86,12 +86,13 @@ function UserManagement() {
     userManagementStatus({
       list: selectedRowKeys.map(id => ({
         Sid: id,
-        State: action === 'enable' ? '1' : '0'
+        State: action === 'enable' ? '0' : '1'
       }))
     }).then((res: any) => {
       if (res.code === 200) {
         message.success('操作成功！')
         init(currentPage, pageSize)
+        setSelectedRowKeys([])
       } else {
         message.error('操作失败！')
       }
