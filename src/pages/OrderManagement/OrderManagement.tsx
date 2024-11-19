@@ -2,27 +2,41 @@ import { useEffect, useState } from 'react'
 import { DatePicker, Table, Pagination } from 'antd'
 import { usebegin } from '@/store/contextmodel'
 import { orderManagementList } from '@/api/useApi'
+import dayjs from 'dayjs'
 
 function OrderManagement() {
   const Logininformation = usebegin((state: any) => state.Logininformation)
 
-  const [Stime, setStime] = useState('2024-01-01')
-  const [Etime, setEtime] = useState('2024-12-01')
+  // 设置默认的时间范围
+  const [Stime, setStime] = useState('')
+  const [Etime, setEtime] = useState('')
   const [data, setData] = useState([])
   const [total, setTotal] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(30)
 
   useEffect(() => {
-    init()
-  }, [Stime, Etime, currentPage, pageSize])
+    // 获取当前年份的起始日期和结束日期
+    const now = dayjs()
+    const currentYear = now.year()
+    const startOfYear = dayjs(`${currentYear}-01-01`) // 当前年份的 1 月 1 日
+    const today = now
+
+    // 设置默认时间范围
+    setStime(startOfYear.format('YYYY-MM-DD'))
+    setEtime(today.format('YYYY-MM-DD'))
+
+    // 初始化数据
+    init(startOfYear.format('YYYY-MM-DD'), today.format('YYYY-MM-DD'), 1, pageSize)
+  }, [pageSize])
+
   // 获取数据的方法
-  function init() {
+  function init(startDate: string, endDate: string, page: number, pageSize: number) {
     orderManagementList({
       Userid: Logininformation.sid,
-      Stime: Stime,
-      Etime: Etime,
-      Pagenum: currentPage.toString(),
+      Stime: startDate,
+      Etime: endDate,
+      Pagenum: page.toString(),
       Pagesize: pageSize.toString()
     }).then((res: any) => {
       setData(res.data) // 设置数据
@@ -33,14 +47,20 @@ function OrderManagement() {
   // 处理日期选择
   const handleDateChange = (dates: any) => {
     if (dates && dates.length === 2) {
-      // 如果用户选择了开始和结束日期，更新状态
       const [start, end] = dates
       setStime(start.format('YYYY-MM-DD'))
       setEtime(end.format('YYYY-MM-DD'))
+      init(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'), currentPage, pageSize)
     } else {
       // 如果用户清空了日期选择，设置为默认的时间范围
-      setStime('2024-01-01')
-      setEtime('2024-12-01')
+      const now = dayjs()
+      const currentYear = now.year()
+      const startOfYear = dayjs(`${currentYear}-01-01`)
+      const today = now
+
+      setStime(startOfYear.format('YYYY-MM-DD'))
+      setEtime(today.format('YYYY-MM-DD'))
+      init(startOfYear.format('YYYY-MM-DD'), today.format('YYYY-MM-DD'), currentPage, pageSize)
     }
   }
 
@@ -82,19 +102,26 @@ function OrderManagement() {
       key: 'Device_state'
     }
   ]
+
   // 分页改变页码
   const handlePageChange = (page: number, pageSize: number) => {
     setCurrentPage(page)
     setPageSize(pageSize)
+    init(Stime, Etime, page, pageSize)
   }
 
   return (
     <>
       {/* 日期选择器 */}
-      <DatePicker.RangePicker className="mb-4" onChange={handleDateChange} />
+      <DatePicker.RangePicker
+        onChange={handleDateChange}
+        value={[Stime ? dayjs(Stime) : null, Etime ? dayjs(Etime) : null]}
+        placeholder={['开始日期', '结束日期']}
+      />
 
       {/* 表格展示 */}
       <Table
+        className="my-4"
         columns={columns}
         dataSource={data}
         rowKey="Device_Sid"
