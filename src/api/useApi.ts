@@ -27,3 +27,4 @@ export const moneyList = (data: UserInfotype) => {
 };
 
 // 订单管理
+export const orderManagementList = (data: any) => request("POST", "/OuprooderGet", data);
