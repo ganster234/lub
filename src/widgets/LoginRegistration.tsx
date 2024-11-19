@@ -239,7 +239,7 @@ export default function LoginRegistration() {
             </>
           )}
           {data.type == '登录' && (
-            <div className="flex items-center mt-4">
+            <div className="flex items-center mt-5">
               <Input
                 size="lg"
                 autoComplete=""
