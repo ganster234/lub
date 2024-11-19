@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import styled from '@emotion/styled'
 import { usebegin } from '@/store/contextmodel'
-import { Login, register } from '@/api/useApi'
+import { Login, register, verifyCode } from '@/api/useApi'
 import { produce } from 'immer'
 import { message } from 'antd'
 import { Input } from '@nextui-org/react'
@@ -57,10 +57,11 @@ export default function LoginRegistration() {
     username: '', //账号
     password: '', //密码
     affirmpss: '', //确认密码
-    invitationCode: '', //邀请码
     imgcode: '', //图形验证码
     type: '登录'
   })
+  const [verifyData, setVerifyData] = useState<any>({})
+
   useEffect(() => {
     if (takestore.disclosedBallot) {
       //记住账号密码
@@ -81,7 +82,15 @@ export default function LoginRegistration() {
     if (videoDOm.current) {
       videoDOm.current.play()
     }
+    init()
   }, [])
+
+  function init() {
+    verifyCode().then((res: any) => {
+      setVerifyData(res.data[0])
+    })
+  }
+
   const goLogin = () => {
     //登录完成
     if (data.type == '登录') {
@@ -98,27 +107,28 @@ export default function LoginRegistration() {
         changeToken('dc6e13b90b4bd1515923e1171100ea25')
         message.success('登录成功')
         location.reload()
-        // Login({
-        //   account: data.username,
-        //   password: data.password,
-        //   captcha: data.imgcode,
-        //   keeplogin: 0,
-        // }).then((res: any) => {
-        //   console.log(res);
-        //   if (res.code == 0) {
-        //     takestore.setuser(res.data.userinfo);
-        //     changeToken(res.data.userinfo.token);
-        //     message.success("登录成功");
-        //     location.reload();
-        //     if (takestore.disclosedBallot) {
-        //       //记住密码
-        //       takestore.setcurtain(data.username);
-        //       takestore.setencipherment(data.password);
-        //     }
-        //   } else {
-        //     message.warning(res.msg);
-        //   }
-        // });
+        Login({
+          User: data.username,
+          Pass: data.password,
+          VerifyCode: data.imgcode,
+          Key: verifyData.key,
+          CheckToken: verifyData.checkToken
+        }).then((res: any) => {
+          console.log(res)
+          if (res.code == 0) {
+            takestore.setuser(res.data.userinfo)
+            changeToken(res.data.userinfo.token)
+            message.success('登录成功')
+            location.reload()
+            if (takestore.disclosedBallot) {
+              //记住密码
+              takestore.setcurtain(data.username)
+              takestore.setencipherment(data.password)
+            }
+          } else {
+            message.warning(res.msg)
+          }
+        })
       }
     } else {
       const regex = /^(?=.*[a-z])(?=.*[A-Z]).{10,}$/
@@ -134,14 +144,11 @@ export default function LoginRegistration() {
         })
       } else if (!regex.test(data.affirmpss)) {
         message.warning('密码至少10位，且必须包含大小写字母')
-      } else if (data.invitationCode.length > 4 && data.invitationCode.length < 6) {
-        message.warning('推广码至少4-8位')
       } else {
         register({
           account: data.username,
           password: data.password,
-          password_confirm: data.password,
-          invite_code: data.invitationCode
+          password_confirm: data.password
         }).then((res: any) => {
           console.log(res)
           if (res.code == 0) {
@@ -155,6 +162,7 @@ export default function LoginRegistration() {
     }
     // //登录
   }
+
   const switchover = (val: string) => {
     setdata(
       produce(pre => {
@@ -162,6 +170,7 @@ export default function LoginRegistration() {
       })
     )
   }
+
   return (
     <Element className={windowWidth < 700 ? ' bg-[#add3ff2c]' : ''}>
       {contextHolder}

@@ -7,18 +7,21 @@ interface UserInfotype {
 
 export const Login = (data: any) => {
   //登录
-  return request("POST", "/v1/login", data);
+  return request("POST", "/UserLogin", data);
 };
 export const register = (data: any) => {
   //注册
   return request("POST", "/v1/register", data);
 };
+export const verifyCode = () => {
+  //验证码
+  return request("POST", "/AppVerifyCode", {});
+};
 export const moneyList = (data: UserInfotype) => {
   //金额列表
   return request(
     "GET",
-    `/user/account/order_list?page=${data.page}&page_size=${
-      data.pageSize
+    `/user/account/order_list?page=${data.page}&page_size=${data.pageSize
     }&account=${data.account ? data.account : ""}`
   );
 };

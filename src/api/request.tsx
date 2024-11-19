@@ -1,6 +1,6 @@
 export const base = import.meta.env.PROD
   ? "https://api.afei567.com/v1" //生产环境
-  : "http://192.168.1.59:7326/v1"; //开发环境
+  : "http://47.98.164.131/api/"; //开发环境
 
 /**
  * 请求函数
