@@ -33,4 +33,5 @@ export const orderManagementList = (data: any) => request("POST", "/OuprooderGet
 export const fundManagementList = (data: any) => request("POST", "/OuprooderTkGet", data);
 
 // 用户管理
-export const userManagementList = (data: any) => request("POST", "/OuUserGet", data);
+export const userManagementList = (data: any) => request("POST", "/OuUserGet", data); // list
+export const userManagementStatus = (data: any) => request("POST", "/OuUserUp", data);  // update status

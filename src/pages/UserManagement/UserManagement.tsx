@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Table, Pagination } from 'antd'
+import { Table, Pagination, Button, message } from 'antd'
 import { usebegin } from '@/store/contextmodel'
-import { userManagementList } from '@/api/useApi'
+import { userManagementList, userManagementStatus } from '@/api/useApi'
 
 function UserManagement() {
   const Logininformation = usebegin((state: any) => state.Logininformation)
@@ -10,6 +10,7 @@ function UserManagement() {
   const [total, setTotal] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(30)
+  const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]) // 选中的行的 key
 
   useEffect(() => {
     // 初始化数据
@@ -75,14 +76,55 @@ function UserManagement() {
     init(page, pageSize)
   }
 
+  // 批量启用/禁用
+  const handleBulkAction = (action: 'enable' | 'disable') => {
+    if (selectedRowKeys.length === 0) {
+      message.error('请先选择要操作的用户！')
+      return
+    }
+
+    userManagementStatus({
+      list: selectedRowKeys.map(id => ({
+        Sid: id,
+        State: action === 'enable' ? '1' : '0'
+      }))
+    }).then((res: any) => {
+      if (res.code === 200) {
+        message.success('操作成功！')
+        init(currentPage, pageSize)
+      } else {
+        message.error('操作失败！')
+      }
+    })
+  }
+
+  // 表格的 rowSelection 配置
+  const rowSelection = {
+    selectedRowKeys,
+    onChange: (selectedRowKeys: React.Key[]) => {
+      setSelectedRowKeys(selectedRowKeys) // 更新选中的行的key
+    }
+  }
+
   return (
     <>
+      {/* 按钮区域 */}
+      <div className="my-4">
+        <Button type="primary" onClick={() => handleBulkAction('enable')} className="mr-4">
+          批量启用
+        </Button>
+        <Button danger onClick={() => handleBulkAction('disable')}>
+          批量禁用
+        </Button>
+      </div>
+
       {/* 表格展示 */}
       <Table
         className="my-4"
         rowKey="Device_Sid"
         columns={columns}
         dataSource={data}
+        rowSelection={rowSelection} // 设置 rowSelection
         pagination={false} // 禁用分页
         scroll={{ y: 'calc(100vh - 260px)' }}
       />
