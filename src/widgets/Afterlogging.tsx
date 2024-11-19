@@ -7,8 +7,14 @@ import {
   FullscreenOutlined,
   FullscreenExitOutlined,
   DownOutlined,
+  LogoutOutlined,
 } from "@ant-design/icons";
-import { Button } from "@nextui-org/react";
+import {
+  Button,
+  Popover,
+  PopoverTrigger,
+  PopoverContent,
+} from "@nextui-org/react";
 const { Header, Sider, Content } = Layout;
 import route from "../userouter";
 import PackingMu from "@/component/Menu";
@@ -57,14 +63,23 @@ const Afterlogging = () => {
         )}
         <Layout>
           <Header
-            className={windowWidth > 600 ? " mt-4 px-[16px]" : "px-[8px]"}
-            style={{ background: "#f5f5f5" }}
+            className={windowWidth > 600 ? "mt-4 px-[16px]" : "mt-2 px-[8px]"}
+            style={{
+              background: "#f5f5f5",
+              height: 48,
+            }}
           >
-            <div className="w-full flex bg-white items-center justify-between">
+            <div
+              style={{
+                borderRadius: 12,
+                overflow: "hidden",
+              }}
+              className="w-full h-[48px] flex bg-white items-center justify-between"
+            >
               {windowWidth > 600 ? (
                 <Button
                   onClick={() => setCollapsed(!collapsed)}
-                  className=" bg-transparent w-[64px] h-[64px] text-[18px]"
+                  className=" bg-transparent w-[64px] h-[50px] text-[18px]"
                 >
                   {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
                 </Button>
@@ -77,33 +92,62 @@ const Afterlogging = () => {
                 </Button>
               )}
 
-              <div className="mr-[34px] flex items-center">
-                <p className="text-[20px] cursor-pointer ">
-                  {amplification ? (
-                    <FullscreenExitOutlined
-                      onClick={() => bigandSmle("缩小")}
-                    />
-                  ) : (
-                    <FullscreenOutlined onClick={() => bigandSmle("放大")} />
-                  )}
+              <div className="mr-[10px] flex items-center">
+                <p className="text-[#25235C] text-[15px]">
+                  余额：<span className="  text-[red] ">28元</span>
                 </p>
-                <Button className=" flex ">
-                  <img src="/heardeImg.png" alt="" />
-                  你好，用户
-                  <DownOutlined />
-                </Button>
-                {/* <p
-                  onClick={() => {
-                    //退出登录
-                    route.navigate("/");
-                    // localStorage.clear();
-                    localStorage.removeItem("token");
-                    location.reload();
-                  }}
-                  className="logOff cursor-pointer hover:text-[red]"
-                >
-                  <LogoutOutlined /> 退出
-                </p> */}
+                <div className="w-3 h-full mx-2 bg-[#f5f5f5] text-[#f5f5f5]  ">
+                  o
+                </div>
+                <p className=" cursor-pointer text-[#28265e]  font-extrabold text-[16px]">
+                  充
+                </p>
+                {windowWidth > 600 && (
+                  <>
+                    <div className="w-3 h-full mx-2 bg-[#f5f5f5] text-[#f5f5f5]  ">
+                      o
+                    </div>
+                    <p className="text-[20px] cursor-pointer ">
+                      {amplification ? (
+                        <FullscreenExitOutlined
+                          onClick={() => bigandSmle("缩小")}
+                        />
+                      ) : (
+                        <FullscreenOutlined
+                          onClick={() => bigandSmle("放大")}
+                        />
+                      )}
+                    </p>
+                  </>
+                )}
+
+                <div className="w-3 h-full mx-2 bg-[#f5f5f5] text-[#f5f5f5]  ">
+                  o
+                </div>
+                <Popover placement="bottom">
+                  <PopoverTrigger>
+                    <Button className="  bg-transparent  p-0 flex h-[50px]">
+                      <img src="/heardeImg.png" alt="" />
+                      {windowWidth > 600 && <p>你好，用户</p>}
+                      <DownOutlined />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className=" rounded-md ">
+                    <div className="px-1 py-1">
+                      <p
+                        onClick={() => {
+                          //退出登录
+                          route.navigate("/");
+                          localStorage.removeItem("token");
+                          location.reload();
+                        }}
+                        className="logOff h-[20px] cursor-pointer hover:text-[red]"
+                      >
+                        <LogoutOutlined /> 退出登录
+                      </p>
+                    </div>
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
           </Header>
