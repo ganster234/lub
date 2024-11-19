@@ -28,3 +28,6 @@ export const moneyList = (data: UserInfotype) => {
 
 // 订单管理
 export const orderManagementList = (data: any) => request("POST", "/OuprooderGet", data);
+
+// 资金管理
+export const fundManagementList = (data: any) => request("POST", "/OuprooderTkGet", data);
