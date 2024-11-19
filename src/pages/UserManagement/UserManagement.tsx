@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { Table, Pagination, Button, message } from 'antd'
+import { Table, Pagination, Button, message, Modal, Input, Form } from 'antd'
 import { usebegin } from '@/store/contextmodel'
-import { userManagementList, userManagementStatus } from '@/api/useApi'
+import { userManagementList, userManagementStatus, userManagementUpdate } from '@/api/useApi'
 
 function UserManagement() {
   const Logininformation = usebegin((state: any) => state.Logininformation)
@@ -11,6 +11,8 @@ function UserManagement() {
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(30)
   const [selectedRowKeys, setSelectedRowKeys] = useState<React.Key[]>([]) // 选中的行的 key
+  const [isModalVisible, setIsModalVisible] = useState(false) // 控制弹窗显示
+  const [currentUser, setCurrentUser] = useState<any>(null) // 当前编辑的用户
 
   useEffect(() => {
     // 初始化数据
@@ -66,6 +68,15 @@ function UserManagement() {
       title: '最近在线',
       dataIndex: 'Device_time',
       key: 'Device_time'
+    },
+    {
+      title: '操作',
+      key: 'action',
+      render: (text: any, record: any) => (
+        <Button onClick={() => handleEdit(record)} type="link">
+          编辑
+        </Button>
+      )
     }
   ]
 
@@ -95,6 +106,39 @@ function UserManagement() {
         setSelectedRowKeys([])
       } else {
         message.error('操作失败！')
+      }
+    })
+  }
+
+  // 编辑按钮点击时的处理
+  const handleEdit = (record: any) => {
+    setCurrentUser(record) // 设置当前编辑的用户
+    setIsModalVisible(true) // 显示弹窗
+  }
+
+  // 关闭弹窗
+  const handleCancel = () => {
+    setIsModalVisible(false)
+    setCurrentUser(null) // 清空当前用户
+  }
+
+  // 提交表单
+  const handleSubmit = (values: any) => {
+    const { Oldpass, Pass, Username, Tel, Contact } = values
+    userManagementUpdate({
+      Sid: currentUser?.Device_Sid,
+      Pass: Pass || '0', // 默认设置为0
+      Oldpass: Oldpass || '', // 旧密码
+      Username: Username || '',
+      Tel: Tel || '',
+      Contact: Contact || ''
+    }).then((res: any) => {
+      if (res.code === 200) {
+        message.success('编辑成功！')
+        setIsModalVisible(false)
+        init(currentPage, pageSize) // 刷新数据
+      } else {
+        message.error('编辑失败！')
       }
     })
   }
@@ -139,6 +183,66 @@ function UserManagement() {
         showSizeChanger
         showQuickJumper
       />
+
+      {/* 编辑弹窗 */}
+      <Modal title="编辑用户" visible={isModalVisible} onCancel={handleCancel} footer={null}>
+        <Form
+          initialValues={{
+            Oldpass: currentUser?.Device_pass || '',
+            Pass: '0',
+            Username: currentUser?.Device_name || '',
+            Tel: currentUser?.Device_tel || '',
+            Contact: currentUser?.Device_contact || ''
+          }}
+          onFinish={handleSubmit}
+        >
+          <Form.Item
+            name="Username"
+            label="用户名"
+            rules={[{ required: true, message: '请输入用户名!' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="Oldpass"
+            label="旧密码"
+            rules={[{ required: true, message: '请输入旧密码!' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="Pass"
+            label="新密码"
+            rules={[{ required: true, message: '请输入新密码!' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="Contact"
+            label="联系人"
+            rules={[{ required: true, message: '请输入联系人!' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item
+            name="Tel"
+            label="联系电话"
+            rules={[{ required: true, message: '请输入联系电话!' }]}
+          >
+            <Input />
+          </Form.Item>
+
+          <Form.Item>
+            <Button type="primary" htmlType="submit">
+              提交
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
     </>
   )
 }

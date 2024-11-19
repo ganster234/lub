@@ -35,3 +35,4 @@ export const fundManagementList = (data: any) => request("POST", "/OuprooderTkGe
 // 用户管理
 export const userManagementList = (data: any) => request("POST", "/OuUserGet", data); // list
 export const userManagementStatus = (data: any) => request("POST", "/OuUserUp", data);  // update status
+export const userManagementUpdate = (data: any) => request("POST", "/UserUp", data);  // update info
