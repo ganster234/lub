@@ -54,7 +54,7 @@ const routeConfig = [
     path: "/order-management",
     element: (
       <Suspense fallback={<div>⌛加载中...</div>}>
-        <FundManagement />
+        <OrderManagement />
       </Suspense>
     ),
   },
@@ -62,7 +62,7 @@ const routeConfig = [
     path: "/fund-management",
     element: (
       <Suspense fallback={<div>⌛加载中...</div>}>
-        <OrderManagement />
+        <FundManagement />
       </Suspense>
     ),
   },
