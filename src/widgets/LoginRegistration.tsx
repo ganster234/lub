@@ -99,6 +99,9 @@ export default function LoginRegistration() {
 
             changeToken(res.token)
             message.success('登录成功')
+            setTimeout(() => {
+              location.reload()
+            }, 800)
           }
         })
       }
