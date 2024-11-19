@@ -34,7 +34,7 @@ function UserManagement() {
   // 表格列的定义
   const columns = [
     {
-      title: '登录账号',
+      title: '用户名称',
       dataIndex: 'Device_name',
       key: 'Device_name'
     },
@@ -42,11 +42,6 @@ function UserManagement() {
       title: '昵称',
       dataIndex: 'Device_nick',
       key: 'Device_nick'
-    },
-    {
-      title: '联系电话',
-      dataIndex: 'Device_tel',
-      key: 'Device_tel'
     },
     {
       title: '状态',
@@ -59,15 +54,30 @@ function UserManagement() {
       key: 'Device_type'
     },
     {
-      title: '金额',
+      title: '价格',
       dataIndex: 'Device_money',
       key: 'Device_money',
       render: (text: string) => `￥${text}` // 格式化金额
     },
     {
-      title: '最近在线',
+      title: '时间',
       dataIndex: 'Device_time',
       key: 'Device_time'
+    },
+    {
+      title: '联系电话',
+      dataIndex: 'Device_tel',
+      key: 'Device_tel'
+    },
+    {
+      title: '联系方式',
+      dataIndex: 'Device_contact',
+      key: 'Device_contact'
+    },
+    {
+      title: '最后登录',
+      dataIndex: 'Device_lasttime',
+      key: 'Device_lasttime'
     },
     {
       title: '操作',
@@ -188,8 +198,8 @@ function UserManagement() {
       <Modal title="编辑用户" visible={isModalVisible} onCancel={handleCancel} footer={null}>
         <Form
           initialValues={{
-            Oldpass: currentUser?.Device_pass || '',
-            Pass: '0',
+            Oldpass: '',
+            Pass: '',
             Username: currentUser?.Device_name || '',
             Tel: currentUser?.Device_tel || '',
             Contact: currentUser?.Device_contact || ''
@@ -222,7 +232,7 @@ function UserManagement() {
 
           <Form.Item
             name="Contact"
-            label="联系人"
+            label="联系方式"
             rules={[{ required: true, message: '请输入联系人!' }]}
           >
             <Input />
@@ -230,7 +240,7 @@ function UserManagement() {
 
           <Form.Item
             name="Tel"
-            label="联系电话"
+            label="电话"
             rules={[{ required: true, message: '请输入联系电话!' }]}
           >
             <Input />
