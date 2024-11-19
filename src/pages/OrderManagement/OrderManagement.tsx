@@ -67,6 +67,14 @@ function OrderManagement() {
   // 表格列的定义
   const columns = [
     {
+      title: '序号',
+      render: (_: any, __: any, index: number) => {
+        // 计算当前页的序号
+        return (currentPage - 1) * pageSize + index + 1
+      },
+      width: 70
+    },
+    {
       title: '订单编号',
       dataIndex: 'Device_Sid',
       key: 'Device_Sid'
