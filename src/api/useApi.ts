@@ -31,3 +31,6 @@ export const orderManagementList = (data: any) => request("POST", "/OuprooderGet
 
 // 资金管理
 export const fundManagementList = (data: any) => request("POST", "/OuprooderTkGet", data);
+
+// 用户管理
+export const userManagementList = (data: any) => request("POST", "/OuUserGet", data);
