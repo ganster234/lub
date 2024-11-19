@@ -82,12 +82,14 @@ function OrderManagement() {
     {
       title: '游戏区服',
       dataIndex: 'Device_server',
-      key: 'Device_server'
+      key: 'Device_server',
+      width: 100
     },
     {
       title: '标题',
       dataIndex: 'Device_title',
-      key: 'Device_title'
+      key: 'Device_title',
+      width: 100
     },
     {
       title: '价格',
@@ -102,27 +104,32 @@ function OrderManagement() {
     {
       title: '冷却次数',
       dataIndex: 'Device_timenum',
-      key: 'Device_timenum'
+      key: 'Device_timenum',
+      width: 100
     },
     {
       title: '昵称',
       dataIndex: 'Device_nick',
-      key: 'Device_nick'
+      key: 'Device_nick',
+      width: 100
     },
     {
       title: '状态',
       dataIndex: 'Device_state',
-      key: 'Device_state'
+      key: 'Device_state',
+      width: 100
     },
     {
       title: '进度',
       dataIndex: 'Device_jd',
-      key: 'Device_jd'
+      key: 'Device_jd',
+      width: 100
     },
     {
       title: '操作次数',
       dataIndex: 'Device_num',
-      key: 'Device_num'
+      key: 'Device_num',
+      width: 100
     }
   ]
 
@@ -145,6 +152,7 @@ function OrderManagement() {
       {/* 表格展示 */}
       <Table
         className="my-4"
+        tableLayout="auto"
         rowKey="Device_Sid"
         columns={columns}
         dataSource={data}

@@ -127,6 +127,7 @@ function FundManagement() {
       {/* 表格展示 */}
       <Table
         className="my-4"
+        tableLayout="auto"
         rowKey="Device_Id"
         columns={columns}
         dataSource={data}

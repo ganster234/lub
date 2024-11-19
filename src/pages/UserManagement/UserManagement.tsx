@@ -72,7 +72,8 @@ function UserManagement() {
     {
       title: '联系方式',
       dataIndex: 'Device_contact',
-      key: 'Device_contact'
+      key: 'Device_contact',
+      width: 100
     },
     {
       title: '最后登录',
@@ -176,6 +177,7 @@ function UserManagement() {
       {/* 表格展示 */}
       <Table
         className="my-4"
+        tableLayout="auto"
         rowKey="Device_Sid"
         columns={columns}
         dataSource={data}
