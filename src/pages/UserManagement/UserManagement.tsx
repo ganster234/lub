@@ -84,7 +84,7 @@ function UserManagement() {
         columns={columns}
         dataSource={data}
         pagination={false} // 禁用分页
-        scroll={{ y: 'calc(100vh - 370px)' }}
+        scroll={{ y: 'calc(100vh - 260px)' }}
       />
 
       {/* 分页器 */}
