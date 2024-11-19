@@ -67,39 +67,44 @@ function FundManagement() {
   // 表格列的定义
   const columns = [
     {
-      title: '设备ID',
-      dataIndex: 'Device_Sid',
-      key: 'Device_Sid'
+      title: 'ID',
+      dataIndex: 'Device_Id',
+      key: 'Device_Id'
     },
     {
-      title: '设备服务器',
-      dataIndex: 'Device_server',
-      key: 'Device_server'
+      title: '昵称',
+      dataIndex: 'Device_name',
+      key: 'Device_name'
     },
     {
-      title: '设备标题',
-      dataIndex: 'Device_title',
-      key: 'Device_title'
+      title: '旧金额',
+      dataIndex: 'Device_omoney',
+      key: 'Device_omoney'
     },
     {
-      title: '金额',
-      dataIndex: 'Device_money',
-      key: 'Device_money'
+      title: '变动金额',
+      dataIndex: 'Device_cmoney',
+      key: 'Device_cmoney'
+    },
+    {
+      title: '新金额',
+      dataIndex: 'Device_nmoney',
+      key: 'Device_nmoney'
+    },
+    {
+      title: '相关订单',
+      dataIndex: 'Device_Osid',
+      key: 'Device_Osid'
+    },
+    {
+      title: '类别',
+      dataIndex: 'Device_type',
+      key: 'Device_type'
     },
     {
       title: '时间',
       dataIndex: 'Device_time',
       key: 'Device_time'
-    },
-    {
-      title: '昵称',
-      dataIndex: 'Device_nick',
-      key: 'Device_nick'
-    },
-    {
-      title: '状态',
-      dataIndex: 'Device_state',
-      key: 'Device_state'
     }
   ]
 
