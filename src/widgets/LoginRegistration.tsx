@@ -45,7 +45,6 @@ const Element = styled.div`
 `
 
 export default function LoginRegistration() {
-  const Logininformation = usebegin((state: any) => state.Logininformation)
   const setLogininformation = usebegin((state: any) => state.setLogininformation)
   const changeToken = useTokenStore(state => state.changeToken)
 
@@ -97,7 +96,6 @@ export default function LoginRegistration() {
               sid: obj.Device_Sid,
               roles: obj.Device_Roles
             })
-            console.log(Logininformation)
 
             changeToken(res.token)
             message.success('登录成功')
