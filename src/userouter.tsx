@@ -7,6 +7,9 @@ const Pricecontrol = lazy(() => import("./widgets/page/Pricecontrol.tsx"));
 const Figure = lazy(() => import("./widgets/page/Figure")); //封装表格试列
 const USTD = lazy(() => import("./widgets/page/USTD.tsx"));
 const Systemlayout = lazy(() => import("./widgets/page/Systemlayout.tsx"));
+const FundManagement = lazy(() => import("./pages/FundManagement/FundManagement"));
+const OrderManagement = lazy(() => import("./pages/OrderManagement/OrderManagement.tsx"));
+const UserManagement = lazy(() => import("./pages/UserManagement/UserManagement.tsx"));
 const NotFound = lazy(() => import("./widgets/page/NotFound.tsx")); // 404 页面
 
 // 获取用户信息
@@ -46,6 +49,30 @@ const routeConfig = [
       </Suspense>
     ),
     roles: ["管理员"], // 指定该路由的角色
+  },
+  {
+    path: "/order-management",
+    element: (
+      <Suspense fallback={<div>⌛加载中...</div>}>
+        <FundManagement />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/fund-management",
+    element: (
+      <Suspense fallback={<div>⌛加载中...</div>}>
+        <OrderManagement />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/user-management",
+    element: (
+      <Suspense fallback={<div>⌛加载中...</div>}>
+        <UserManagement />
+      </Suspense>
+    ),
   },
   {
     path: "*", // 匹配所有未定义的路径
