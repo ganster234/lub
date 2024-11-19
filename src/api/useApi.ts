@@ -35,3 +35,14 @@ export const moneyList = (data: UserInfotype) => {
     }&account=${data.account ? data.account : ""}`
   );
 };
+
+// 订单管理
+export const orderManagementList = (data: any) => request("POST", "/OuprooderGet", data);
+
+// 资金管理
+export const fundManagementList = (data: any) => request("POST", "/OuprooderTkGet", data);
+
+// 用户管理
+export const userManagementList = (data: any) => request("POST", "/OuUserGet", data); // list
+export const userManagementStatus = (data: any) => request("POST", "/OuUserUp", data);  // update status
+export const userManagementUpdate = (data: any) => request("POST", "/UserUp", data);  // update info
