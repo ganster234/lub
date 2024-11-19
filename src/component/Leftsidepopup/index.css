@@ -24,7 +24,7 @@
 }
 
 .dialog-content {
-  width: 100%; /* 宽度为手机屏幕的一半 */
+  width: 42%; /* 宽度为手机屏幕的一半 */
   height: 100vh; /* 高度撑满屏幕 */
   background-color: white;
   overflow-y: auto;

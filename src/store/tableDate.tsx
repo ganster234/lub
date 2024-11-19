@@ -24,18 +24,4 @@ export const Figuretable = [
     render: (record: number) => <>{record || "-"}</>,
   },
 ];
-export const menus_List = [
-  //手机端菜单
-  {
-    key: "/",
-    label: "USTD订单",
-  },
-  {
-    key: "/setpassword",
-    label: "封装表格试列",
-  },
-  // {
-  //   key: "/setpassword",
-  //   label: "账号绑定",
-  // },
-];
+

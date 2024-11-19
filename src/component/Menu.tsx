@@ -6,7 +6,7 @@ import styled from "@emotion/styled";
 import useTokenStore from "@/store/token";
 
 const MyMenu = styled(Menu)`
-  background-color: #20222a;
+  background-color: #5c7fff;
   .ant-menu-item {
     color: white;
   }
@@ -14,14 +14,13 @@ const MyMenu = styled(Menu)`
     color: white;
   }
   .ant-menu-item-selected {
-    background-color: #f1f0ff !important;
-    border-radius: 0px;
-    color: #453bc8 !important;
-    border-left: 4px solid #695dff;
+    background-color: #ffffff !important;
+    border-radius: 8px;
+    color: #5f81ff !important;
   }
   .ant-menu-item-active {
-    border-radius: 0px;
-    color: #2773f2 !important;
+    border-radius: 8px;
+    color: red !important;
   }
 `;
 
@@ -131,9 +130,10 @@ const PackingMu = (props: { coll: boolean }) => {
 
   return (
     <div>
-      <div className="text-white text-md mb-2 border-b-1 border-white bg-[#20222a] font-extrabold flex justify-center h-[64px] items-center">
+      <div className="text-white text-md mb-2 bg-[#5C7FFF] font-extrabold flex justify-center h-[64px] items-center">
         {!props.coll ? (
-          <p className="font-black text-[17px]">LuBi</p>
+          // <p className="font-black text-[17px]">LuBi</p>
+          <></>
         ) : (
           <div className="cube-box48">
             <div className="cube48">
