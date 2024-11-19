@@ -10,7 +10,7 @@ function OrderManagement() {
   // 设置默认的时间范围
   const [Stime, setStime] = useState('')
   const [Etime, setEtime] = useState('')
-  const [data, setData] = useState([])
+  const [data, setData] = useState<any>([])
   const [total, setTotal] = useState(0)
   const [currentPage, setCurrentPage] = useState(1)
   const [pageSize, setPageSize] = useState(30)
@@ -39,8 +39,170 @@ function OrderManagement() {
       Pagenum: page.toString(),
       Pagesize: pageSize.toString()
     }).then((res: any) => {
-      setData(res.data) // 设置数据
-      setTotal(res.total) // 假设接口返回总数total字段
+      // setData(res.data) // 设置数据
+      setData([
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        },
+        {
+          Device_Sid: '1266ea82829f48cba78d23cb943d6cbe',
+          Device_server: '微信',
+          Device_title: '',
+          Device_money: '100.00',
+          Device_time: '2024/11/19 11:09:44',
+          Device_timenum: '',
+          Device_nick: 'test',
+          Device_state: '派单中'
+        }
+      ]) // 设置数据
+      setTotal(res.pagenum) // 接口返回总数total字段
     })
   }
 
@@ -122,10 +284,11 @@ function OrderManagement() {
       {/* 表格展示 */}
       <Table
         className="my-4"
+        rowKey="Device_Sid"
         columns={columns}
         dataSource={data}
-        rowKey="Device_Sid"
         pagination={false} // 禁用分页
+        scroll={{ y: 'calc(100vh - 370px)' }}
       />
 
       {/* 分页器 */}
