@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { apiuserinfo, oupayweb } from "@/api/useApi";
+import { Button } from "@nextui-org/react";
 import { Radio } from "antd";
 export default function Centraltheme() {
   // 充值中心
   const [information, setinformation] = useState<any>({}); //用户信息
-  const [checkedafter, setcheckedafter] = useState(null);  //选中金额过后
+  const [checkedafter, setcheckedafter] = useState<any>(null); //选中金额过后
+  const [Topupamount, setTopupamount] = useState<any>(null); //选中金额过后
   const [payList, setpayList] = useState([]); //支付列表
 
   useEffect(() => {
@@ -41,11 +43,15 @@ export default function Centraltheme() {
             <span className=" text-[red] ">{information?.Device_money}</span>
           </p>
         </div>
-        <div className=" my-4 flex text-[#172B53]">
-          <p className="  ">支付方式：</p>
+        <div className="my-4 flex text-[#172B53]">
+          <p className="min-w-[70px]">支付方式：</p>
           <Radio.Group
             onChange={(val) => {
-              console.log(val.target.value, "val.target.value",'1,3,5'.split(','));
+              console.log(
+                val.target.value,
+                "val.target.value",
+                "1,3,5".split(",")
+              );
               setcheckedafter(val.target.value);
             }}
           >
@@ -57,15 +63,14 @@ export default function Centraltheme() {
           </Radio.Group>
         </div>
         {checkedafter && (
-          <div className={"flex mt-4 ml-[80px] "}>
-            
-            {/* {checkedafter?.Device_money?.?.map(
+          <div className={"flex flex-wrap mt-4 ml-[70px] "}>
+            {checkedafter?.Device_money?.split(",")?.map(
               (el: number, index: number) => (
                 <Button
                   className={
                     "rounded-[5px] relative mr-4 mt-4 w-[160px] h-[76px] p-[10px] flex flex-col bg-transparent border-2 border-[#E5E5E6] transition-all " +
                     (el == Topupamount
-                      ? "border-[#695DFF] text-white  bg-[#695DFF]"
+                      ? "border-[#695DFF]"
                       : "")
                   }
                   key={index}
@@ -73,17 +78,10 @@ export default function Centraltheme() {
                     setTopupamount(el);
                   }}
                 >
-                  {value?.moneys_overflow_map?.[el] ? (
-                    <p className="bg-[#F20C2A]  rounded-[5px] px-1 absolute top-0 left-0 text-[12px] text-white ">
-                      充{el}送{value.moneys_overflow_map[el]}
-                    </p>
-                  ) : (
-                    <></>
-                  )}
                   <p className="text-[22px] font-bold ">{el}</p>
                 </Button>
               )
-            )} */}
+            )}
           </div>
         )}
       </section>
