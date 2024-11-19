@@ -4,12 +4,7 @@ import { immer } from "zustand/middleware/immer";
 import { produce } from "immer";
 const lasting = {
   //持久化
-  disclosedBallot: false, //记住账户
-  curtain: "", //记住账号密码
-  encipherment: "", //记住密码
-
   Logininformation: "", //登录信息
-  token: "", //登录
   Menuoption: "", //菜单选项
 };
 const perishability = {
@@ -22,22 +17,6 @@ const usebegin = create(
       immer((set) => ({
         //数据持久化修改
         ...lasting,
-        settoken: (val: string) =>
-          set((pre: typeof lasting) => {
-            pre.token = val;
-          }),
-        setcurtain: (val: any) =>
-          set((pre: typeof lasting) => {
-            pre.curtain = val;
-          }),
-        setencipherment: (val: any) =>
-          set((pre: typeof lasting) => {
-            pre.encipherment = val;
-          }),
-        setdisclosedBallot: (val: any) =>
-          set((pre: typeof lasting) => {
-            pre.disclosedBallot = val;
-          }),
         setLogininformation: (val: any) =>
           set((pre: typeof lasting) => {
             pre.Logininformation = val;

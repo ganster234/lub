@@ -1,13 +1,13 @@
-import { useState, useEffect, useRef } from 'react'
-import styled from '@emotion/styled'
-import { usebegin } from '@/store/contextmodel'
-import { Login, register, verifyCode } from '@/api/useApi'
+import { useState, useEffect } from 'react'
 import { produce } from 'immer'
 import { message } from 'antd'
 import { Input } from '@nextui-org/react'
 import { Button } from '@nextui-org/react'
+import { usebegin } from '@/store/contextmodel'
 import useTokenStore from '@/store/token'
 import { useWindowWidth } from '@/store/utile'
+import styled from '@emotion/styled'
+import { Login, register, verifyCode } from '@/api/useApi'
 
 // 四号登录 （左边右边图片）
 const Element = styled.div`
@@ -45,15 +45,15 @@ const Element = styled.div`
 `
 
 export default function LoginRegistration() {
-  const windowWidth = useWindowWidth() //监听页面宽度
+  const Logininformation = usebegin((state: any) => state.Logininformation)
+  const setLogininformation = usebegin((state: any) => state.setLogininformation)
+
   const changeToken = useTokenStore(state => state.changeToken) //调用store
-  const changeUser = useTokenStore(state => state.changeUserInfo) //调用
+
+  const windowWidth = useWindowWidth() //监听页面宽度
 
   const [messageApi, contextHolder] = message.useMessage()
-  const videoDOm: any = useRef(null)
-  const takestore: any = usebegin()
-
-  const [data, setdata] = useState({
+  const [data, setData] = useState({
     username: '', //账号
     password: '', //密码
     affirmpss: '', //确认密码
@@ -63,28 +63,8 @@ export default function LoginRegistration() {
   const [verifyData, setVerifyData] = useState<any>({})
 
   useEffect(() => {
-    if (takestore.disclosedBallot) {
-      //记住账号密码
-      setdata(
-        produce(pre => {
-          pre.username = takestore.curtain //账号
-          pre.password = takestore.encipherment //密码
-        })
-      )
-    } else {
-      setdata(
-        produce(pre => {
-          pre.username = '' //账号
-          pre.password = '' //密码
-        })
-      )
-    }
-    if (videoDOm.current) {
-      videoDOm.current.play()
-    }
     init()
   }, [])
-
   function init() {
     verifyCode().then((res: any) => {
       setVerifyData(res.data[0])
@@ -101,12 +81,6 @@ export default function LoginRegistration() {
           content: '请输入账号或密码'
         })
       } else {
-        // changeUser({
-        //   username: '普通号'
-        // })
-        // changeToken('dc6e13b90b4bd1515923e1171100ea25')
-        // message.success('登录成功')
-        // location.reload()
         Login({
           User: data.username,
           Pass: data.password,
@@ -114,24 +88,24 @@ export default function LoginRegistration() {
           Key: verifyData.key,
           CheckToken: verifyData.checkToken
         }).then((res: any) => {
-          console.log(res)
-          if (res.code == 0) {
-            takestore.setuser(res.data.userinfo)
-            changeToken(res.data.userinfo.token)
+          if (res.code == 200) {
+            const obj = res.data[0]
+            setLogininformation({
+              username: obj.Device_name,
+              money: obj.Device_money,
+              ggtime: obj.Device_ggtime,
+              gg: obj.Device_gg,
+              sid: obj.Device_Sid,
+              roles: obj.Device_Roles
+            })
+            console.log(Logininformation)
+
+            changeToken(res.token)
             message.success('登录成功')
-            location.reload()
-            if (takestore.disclosedBallot) {
-              //记住密码
-              takestore.setcurtain(data.username)
-              takestore.setencipherment(data.password)
-            }
-          } else {
-            message.warning(res.msg)
           }
         })
       }
     } else {
-      const regex = /^(?=.*[a-z])(?=.*[A-Z]).{10,}$/
       if (data.username == '' || data.password == '') {
         messageApi.open({
           type: 'warning',
@@ -142,8 +116,6 @@ export default function LoginRegistration() {
           type: 'warning',
           content: '两次密码不一致'
         })
-      } else if (!regex.test(data.affirmpss)) {
-        message.warning('密码至少10位，且必须包含大小写字母')
       } else {
         register({
           account: data.username,
@@ -160,11 +132,10 @@ export default function LoginRegistration() {
         })
       }
     }
-    // //登录
   }
 
   const switchover = (val: string) => {
-    setdata(
+    setData(
       produce(pre => {
         pre.type = val
       })
@@ -207,7 +178,7 @@ export default function LoginRegistration() {
               value={data.username}
               placeholder={`请输入${data.type}账号`}
               onChange={(val: any) => {
-                setdata(
+                setData(
                   produce(pre => {
                     pre.username = val.target.value
                   })
@@ -234,7 +205,7 @@ export default function LoginRegistration() {
                   }
                 }}
                 onChange={(val: any) => {
-                  setdata(
+                  setData(
                     produce(pre => {
                       pre.password = val.target.value
                     })
@@ -257,20 +228,32 @@ export default function LoginRegistration() {
                     autoComplete=""
                     value={data.affirmpss}
                     placeholder={`请再次输入${data.type}密码`}
-                    onChange={(val: any) => {
-                      setdata(
+                    onChange={(val: any) =>
+                      setData(
                         produce(pre => {
                           pre.affirmpss = val.target.value
                         })
                       )
-                    }}
+                    }
                   />
                 </form>
               </div>
             </>
           )}
           <div className="flex items-center mt-4">
-            <Input size="lg" placeholder="请输入验证码" />
+            <Input
+              size="lg"
+              autoComplete=""
+              placeholder="请输入验证码"
+              value={data.imgcode}
+              onChange={(val: any) =>
+                setData(
+                  produce(pre => {
+                    pre.imgcode = val.target.value
+                  })
+                )
+              }
+            />
             {/* 验证码图片 */}
             <img
               className="h-[45px] rounded-lg ml-2 cursor-pointer"
