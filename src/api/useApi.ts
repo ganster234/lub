@@ -39,7 +39,7 @@ export const oupryutGet = (data: any) => {
   return request("POST", "/OupryutGet", data);
 };
 
-// 发单列表
+// 活动列表
 export const OuprowebGet = (data: any) => {
   return request("POST", "/OuprowebGet", data);
 };
@@ -60,8 +60,6 @@ export const OuProlGet = (data: any) => {
 export const OuproGet = () => {
   return request("POST", "/OuproGet");
 };
-
-
 
 //金额列表
 export const moneyList = (data: UserInfotype) => {

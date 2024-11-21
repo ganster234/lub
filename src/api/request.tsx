@@ -1,5 +1,5 @@
 export const base = import.meta.env.PROD
-  ? "https://api.afei567.com/v1" //生产环境
+  ? "http://47.98.164.131/api" //生产环境
   : "http://47.98.164.131/api"; //开发环境
 
 /**
@@ -68,7 +68,7 @@ export default function request<R>(
     const responseData = await res.json();
     if (res.status >= 200 && res.status < 400) {
       // 返回已经解析的 JSON 数据
-      if (responseData.code === 40001) {
+      if (responseData.code === 666) {
         message.warning("登录过期，请重新登录");
         setTimeout(() => {
           localStorage.removeItem("token");

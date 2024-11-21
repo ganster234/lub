@@ -4,5 +4,11 @@
   font-family: PingFang SC, PingFang SC;
   font-weight: bold;
 }
-.gridBox {
+.ulBox li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.hdname {
+  width: 110px;
 }

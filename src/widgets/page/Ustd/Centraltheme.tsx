@@ -99,7 +99,7 @@ export default function Centraltheme() {
               收款账户：{checkedafter?.Device_url}
             </li>
             <li className=" flex items-center">
-              <p className=" w-[56px] ">交易号：</p>
+              <p className="w-[70px]">交易号：</p>
               <Input
                 value={Code}
                 onChange={(val: any) => setCode(val.target.value)}
