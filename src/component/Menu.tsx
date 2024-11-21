@@ -46,8 +46,13 @@ export interface Menu_Item {
 }
 export const menuConfig = [
   {
-    label: "我要发单",
+    label: "首页",
     key: "/",
+    icon: "receipt",
+  },
+  {
+    label: "我要发单",
+    key: "/systemlayout",
     icon: "receipt",
   },
   {

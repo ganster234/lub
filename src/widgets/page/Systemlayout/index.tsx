@@ -3,8 +3,7 @@ import Leveling from "./Leveling";
 export default function Systemlayout() {
   // 我要发单
   return (
-    <div>
-      <div>
+    <>
         <Tabs
           classNames={{
             tabList: "w-full p-0 border-b border-divider",
@@ -24,7 +23,6 @@ export default function Systemlayout() {
             <Leveling tblType={"拉新"}></Leveling>
           </Tab>
         </Tabs>
-      </div>
-    </div>
+    </>
   );
 }

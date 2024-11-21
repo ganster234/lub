@@ -5,6 +5,7 @@ import useTokenStore from "./store/token";
 // 动态导入组件
 // const Pricecontrol = lazy(() => import("./widgets/page/Pricecontrol.tsx"));
 const Figure = lazy(() => import("./widgets/page/Figure")); //封装表格试列
+const Home = lazy(() => import("./widgets/page/Home/index.tsx")); //首页
 const USTD = lazy(() => import("./widgets/page/Ustd/index.tsx")); //资金管理
 const Systemlayout = lazy(() => import("./widgets/page/Systemlayout")); //我要发单
 const FundManagement = lazy(
@@ -25,6 +26,14 @@ const userInfo: any = useTokenStore.getState().userInfo;
 const routeConfig = [
   {
     path: "/",
+    element: (
+      <Suspense fallback={<div>⌛加载中...</div>}>
+        <Home />
+      </Suspense>
+    ),
+  },
+  {
+    path: "/systemlayout",
     element: (
       <Suspense fallback={<div>⌛加载中...</div>}>
         <Systemlayout />

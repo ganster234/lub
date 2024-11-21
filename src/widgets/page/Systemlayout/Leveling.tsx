@@ -70,7 +70,7 @@ const App = (props: { tblType: string }) => {
   };
   const onFinish = (values: any) => {
     //下单
-    // console.log("表单提交的数据:", values);
+    console.log("表单提交的数据:", values);
     OuProlAdd({
       Lytype:
         props.tblType == "练级"
@@ -249,13 +249,14 @@ const App = (props: { tblType: string }) => {
               </Col>
               <Col span={12}>
                 <Form.Item
-                  name={props.tblType == "鲁币" ? "Lbhd" : "Lbtype"}
+                  name={props.tblType == "鲁币" ? "Lbhd" : "Type"}
                   label={
                     props.tblType == "鲁币" ? (
                       <div>
                         活动链接
                         {props.tblType == "鲁币" && (
                           <Button
+                            className=" ml-2 "
                             onClick={() => {
                               setUrl("");
                               setName("");
@@ -400,7 +401,7 @@ const App = (props: { tblType: string }) => {
       </Form>
       <Modaltow
         configuration={{
-          isDismissable: true,
+          isDismissable: false,
           radius: "md",
           placement: "center",
           size: "2xl",
@@ -430,6 +431,18 @@ const App = (props: { tblType: string }) => {
               onChange={(val) => setUrl(val.target.value)}
               value={Url}
             ></Input>
+          </li>
+          <li>
+            <p className="hdname">关联游戏：</p>
+            <Select onChange={((val) => {
+              console.log(val,'vvvvvavavav');
+            })} className=" w-full" placeholder="请选择游戏名称">
+              {gameSlet.map((item: any, index) => (
+                <Option key={index} value={item.Device_Sid}>
+                  {item.Device_Name}
+                </Option>
+              ))}
+            </Select>
           </li>
           <li>
             <p className="hdname">是否公开：</p>
