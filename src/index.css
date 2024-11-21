@@ -114,3 +114,22 @@
   width: 100%;
   left: 0;
 }
+
+@media (max-width: 600px) {
+  .ellipsis-single-line {
+    white-space: nowrap; /* 强制内容在一行显示 */
+    overflow: hidden; /* 隐藏超出容器的内容 */
+    text-overflow: ellipsis; /* 使用省略号替代溢出文本 */
+    width: 110px; /* 容器宽度，可以根据需要调整 */
+  }
+  .navDom {
+    flex-wrap: wrap;
+  }
+  .Aboutaccount {
+    margin-left: 10px;
+    margin-bottom: 15px;
+  }
+  .by_ones_elf {
+    margin-top: 10px;
+  }
+}

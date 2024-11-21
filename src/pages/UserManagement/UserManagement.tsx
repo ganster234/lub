@@ -183,11 +183,10 @@ function UserManagement() {
         dataSource={data}
         rowSelection={rowSelection} // 设置 rowSelection
         pagination={false} // 禁用分页
-        scroll={{ y: 'calc(100vh - 260px)' }}
+        scroll={{ x:1080 }}
       />
-
       {/* 分页器 */}
-      <Pagination
+      <Pagination 
         current={currentPage}
         pageSize={pageSize}
         total={total}

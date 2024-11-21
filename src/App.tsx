@@ -6,6 +6,7 @@ import LoginRegistration from "./widgets/LoginRegistration"; //登录四  左右
 
 import useTokenStore from "./store/token";
 import zhCN from "antd/locale/zh_CN";
+
 import { ConfigProvider } from "antd"; //配置国际化
 
 function App() {

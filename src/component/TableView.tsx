@@ -3,10 +3,12 @@ import { useEffect, useState, forwardRef, useImperativeHandle } from "react";
 
 import { message, Table, TablePaginationConfig } from "antd";
 interface TableViewProps<T> {
+  saohaoType?: string;
   api?: any;
   dataList?: any;
   apiState?: any;
   xScroll?: number;
+  bordered?: boolean;
   rowKey?: keyof T;
   rowSelectionKey?: boolean;
   optionsPagintion?: boolean;
@@ -55,10 +57,12 @@ const TableView = forwardRef<TableViewHandle, TableViewProps<any>>(
    */
   (
     {
+      saohaoType,
       api,
       dataList,
       apiState,
       xScroll,
+      bordered,
       rowKey,
       rowSelectionKey,
       optionsPagintion,
@@ -140,12 +144,14 @@ const TableView = forwardRef<TableViewHandle, TableViewProps<any>>(
     const getList = async (state: any) => {
       const { current, pageSize } = pagination || {};
       setLoading(true);
-      const result = await api({
-        page: current,
-        pageSize: pageSize,
-        page_size: pageSize,
-        ...state,
-      });
+      const result = await api(
+        {
+          Pagenum: current,
+          Pagesize: pageSize,
+          ...state,
+        },
+        saohaoType
+      );
       setLoading(false);
       handleResult(result);
     };
@@ -159,12 +165,14 @@ const TableView = forwardRef<TableViewHandle, TableViewProps<any>>(
         });
       }
       setLoading(true);
-      const result = await api({
-        page: 1,
-        pageSize: pageSize,
-        PageSize: pageSize,
-        ...state,
-      });
+      const result = await api(
+        {
+          Pagenum: 1,
+          Pagesize: pageSize,
+          ...state,
+        },
+        saohaoType
+      );
       if (state) {
         setafterfenye(state);
       }
@@ -178,28 +186,31 @@ const TableView = forwardRef<TableViewHandle, TableViewProps<any>>(
       });
       setSelectedRowKeys([]);
       setLoading(true);
-      const result = await api({
-        page: 1,
-        pageSize: size,
-        // ...state,
-      });
+      const result = await api(
+        {
+          Pagenum: 1,
+          Pagesize: size,
+          // ...state,
+        },
+        saohaoType
+      );
       handleResult(result);
     };
 
     const handleResult = (result: any) => {
       //发送请求赋值
-      const { code, data, msg } = result || {};
-      const { all, list } = data || {};
+      const { code, data, msg, pagenum } = result || {};
       setLoading(false);
-      if (code !== 0) return messageApi.error(msg);
+      // messageApi.error(msg);
+      if (code !== 200) return;
       if (optionsPagintion) {
         setState((item: any) => ({
           ...item,
-          total: all || 0,
-          dataList: [...list],
+          total: pagenum || 0,
+          dataList: [...data],
         }));
       } else {
-        setState((item: any) => ({ ...item, dataList: [...list] }));
+        setState((item: any) => ({ ...item, dataList: [...data] }));
       }
     };
 
@@ -260,6 +271,7 @@ const TableView = forwardRef<TableViewHandle, TableViewProps<any>>(
             x: xScroll,
             y: heightValue || height,
           }}
+          bordered={bordered}
           rowKey={(record) => (rowKey ? record[rowKey] : Math.random())}
           loading={loading}
           rowSelection={

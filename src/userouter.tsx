@@ -3,13 +3,19 @@ import { createBrowserRouter } from "react-router-dom";
 import useTokenStore from "./store/token";
 
 // 动态导入组件
-const Pricecontrol = lazy(() => import("./widgets/page/Pricecontrol.tsx"));
+// const Pricecontrol = lazy(() => import("./widgets/page/Pricecontrol.tsx"));
 const Figure = lazy(() => import("./widgets/page/Figure")); //封装表格试列
-const USTD = lazy(() => import("./widgets/page/Ustd/index.tsx"));   //资金管理
-const Systemlayout = lazy(() => import("./widgets/page/Systemlayout.tsx"));
-const FundManagement = lazy(() => import("./pages/FundManagement/FundManagement"));
-const OrderManagement = lazy(() => import("./pages/OrderManagement/OrderManagement.tsx"));
-const UserManagement = lazy(() => import("./pages/UserManagement/UserManagement.tsx"));
+const USTD = lazy(() => import("./widgets/page/Ustd/index.tsx")); //资金管理
+const Systemlayout = lazy(() => import("./widgets/page/Systemlayout")); //我要发单
+const FundManagement = lazy(
+  () => import("./pages/FundManagement/FundManagement")
+);
+const OrderManagement = lazy(
+  () => import("./pages/OrderManagement/OrderManagement.tsx")
+);
+const UserManagement = lazy(
+  () => import("./pages/UserManagement/UserManagement.tsx")
+);
 const NotFound = lazy(() => import("./widgets/page/NotFound.tsx")); // 404 页面
 
 // 获取用户信息
@@ -21,15 +27,7 @@ const routeConfig = [
     path: "/",
     element: (
       <Suspense fallback={<div>⌛加载中...</div>}>
-        <Pricecontrol />
-      </Suspense>
-    ),
-  },
-  {
-    path: "/setpassword",
-    element: (
-      <Suspense fallback={<div>⌛加载中...</div>}>
-        <Figure />
+        <Systemlayout />
       </Suspense>
     ),
   },
@@ -41,15 +39,7 @@ const routeConfig = [
       </Suspense>
     ),
   },
-  {
-    path: "/systemlayout",
-    element: (
-      <Suspense fallback={<div>⌛加载中...</div>}>
-        <Systemlayout />
-      </Suspense>
-    ),
-    roles: ["管理员"], // 指定该路由的角色
-  },
+
   {
     path: "/order-management",
     element: (
@@ -73,6 +63,15 @@ const routeConfig = [
         <UserManagement />
       </Suspense>
     ),
+  },
+  {
+    path: "/setpassword",
+    element: (
+      <Suspense fallback={<div>⌛加载中...</div>}>
+        <Figure />
+      </Suspense>
+    ),
+    roles: ["管理员"], // 指定该路由的角色
   },
   {
     path: "*", // 匹配所有未定义的路径

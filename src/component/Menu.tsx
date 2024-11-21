@@ -46,66 +46,62 @@ export interface Menu_Item {
 }
 export const menuConfig = [
   {
-    label: "未封装表格试列",
+    label: "我要发单",
     key: "/",
-    icon: "Pricecontrolicon",
-  },
-  {
-    label: "封装表格试列",
-    key: "/setpassword",
-    icon: "setpasswd",
+    icon: "receipt",
   },
   {
     label: "资金管理",
     key: "/ustd",
     icon: "capital",
   },
-  // {
-  //   label: "系统配置",
-  //   key: "/systemlayout",
-  //   icon: "system",
-  // },
+
   {
     label: "订单管理",
     key: "/order-management",
-    icon: "system",
+    icon: "orderImg",
   },
   {
-    label: "资金管理",
+    label: "资金列表",
     key: "/fund-management",
-    icon: "USTD",
+    icon: "capital",
   },
   {
     label: "用户管理",
     key: "/user-management",
-    icon: "Pricecontrolicon",
+    icon: "userimg",
   },
-  {
-    label: "我是文件",
-    key: "/file",
-    icon: "setpasswd",
-    roles: ["普通号"],
-    children: [
-      {
-        label: "跳转",
-        key: "/4",
-      },
-      {
-        label: "文件",
-        key: "/sub3",
-        children: [
-          {
-            label: "子菜单",
-            key: "/cs",
-          },
-          {
-            label: "子菜单2",
-            key: "8",
-          },
-        ],
-      },
-    ],
-  },
+  // {
+  //   label: "封装表格试列",
+  //   key: "/setpassword",
+  //   icon: "setpasswd",
+  // },
+  // {
+  //   label: "我是文件",
+  //   key: "/file",
+  //   icon: "setpasswd",
+  //   roles: ["普通号"],
+  //   children: [
+  //     {
+  //       label: "跳转",
+  //       key: "/4",
+  //     },
+  //     {
+  //       label: "文件",
+  //       key: "/sub3",
+  //       children: [
+  //         {
+  //           label: "子菜单",
+  //           key: "/cs",
+  //         },
+  //         {
+  //           label: "子菜单2",
+  //           key: "8",
+  //         },
+  //       ],
+  //     },
+  //   ],
+  // },
 ];
 
 const PackingMu = (props: { coll: boolean }) => {

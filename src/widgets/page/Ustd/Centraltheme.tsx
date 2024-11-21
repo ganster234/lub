@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
-import { apiuserinfo, oupayweb } from "@/api/useApi";
+import { apiuserinfo, oupayweb, ouxdAdd } from "@/api/useApi";
 import { Button } from "@nextui-org/react";
-import { Radio } from "antd";
+import { Radio, Input, message } from "antd";
 export default function Centraltheme() {
   // 充值中心
   const [information, setinformation] = useState<any>({}); //用户信息
-  const [checkedafter, setcheckedafter] = useState<any>(null); //选中金额过后
+  const [checkedafter, setcheckedafter] = useState<any>(null); //选中支付方式过后
   const [Topupamount, setTopupamount] = useState<any>(null); //选中金额过后
+  const [Code, setCode] = useState(""); //交易单号
   const [payList, setpayList] = useState([]); //支付列表
 
   useEffect(() => {
@@ -23,6 +24,33 @@ export default function Centraltheme() {
       }
     });
   }, []);
+  const present = () => {
+    //立即提交/充值
+    if (Topupamount == null || checkedafter == null) {
+      return message.warning("选择支付方式后选择支付金额");
+    }
+    if (checkedafter?.Device_type == "usdt" && Code == "") {
+      return message.warning("请输入交易单号");
+    }
+    // console.log("发请求", Topupamount, checkedafter);
+    // console.log(information, "用户信息");
+    ouxdAdd({
+      Usersid: information?.Device_Sid,
+      Username: information?.Device_name,
+      Num: "1",
+      Money: Topupamount,
+      Btmoney: "显示" + Topupamount,
+      Code,
+      Type: checkedafter?.Device_type,
+    }).then((res: any) => {
+      //支付列表
+      if (res.code == 200) {
+        const decodedUrl = decodeURIComponent(res.orderweburl);
+        window.open(decodedUrl);
+        setCode("");
+      }
+    });
+  };
   return (
     <>
       <div className=" text-[22px] border-b-1 pb-3 border-[#F4F4F6]  ">
@@ -47,11 +75,8 @@ export default function Centraltheme() {
           <p className="min-w-[70px]">支付方式：</p>
           <Radio.Group
             onChange={(val) => {
-              console.log(
-                val.target.value,
-                "val.target.value",
-                "1,3,5".split(",")
-              );
+              setTopupamount(null);
+              setCode("");
               setcheckedafter(val.target.value);
             }}
           >
@@ -62,21 +87,42 @@ export default function Centraltheme() {
             ))}
           </Radio.Group>
         </div>
+        {checkedafter?.Device_type == "usdt" && (
+          <ul>
+            <li className="text-[#172B53] p-[10px]  border-1 bg-[#FDF3F5] border-[#EF2F56]">
+              请在钱包内向下方收款账户打款充值的U金额，打款成功后24小时内充值成功。
+              <span className=" text-[red] ">
+                （ USTD汇率{information?.Device_hl}）
+              </span>
+            </li>
+            <li className=" my-[15px] ">
+              收款账户：{checkedafter?.Device_url}
+            </li>
+            <li className=" flex items-center">
+              <p className=" w-[56px] ">交易号：</p>
+              <Input
+                value={Code}
+                onChange={(val: any) => setCode(val.target.value)}
+                className=" max-w-[500px] "
+                placeholder="请输入交易号"
+              ></Input>
+            </li>
+          </ul>
+        )}
+
         {checkedafter && (
-          <div className={"flex flex-wrap mt-4 ml-[70px] "}>
+          <div className={"flex flex-wrap mt-4 "}>
             {checkedafter?.Device_money?.split(",")?.map(
               (el: number, index: number) => (
                 <Button
                   className={
                     "rounded-[5px] relative mr-4 mt-4 w-[160px] h-[76px] p-[10px] flex flex-col bg-transparent border-2 border-[#E5E5E6] transition-all " +
                     (el == Topupamount
-                      ? "border-[#695DFF]"
+                      ? "border-[#EF2F56] bg-[#FDF3F5] border-2 text-[#EF2F56]"
                       : "")
                   }
                   key={index}
-                  onClick={() => {
-                    setTopupamount(el);
-                  }}
+                  onClick={() => setTopupamount(el)}
                 >
                   <p className="text-[22px] font-bold ">{el}</p>
                 </Button>
@@ -84,6 +130,14 @@ export default function Centraltheme() {
             )}
           </div>
         )}
+        <Button
+          className={
+            "bg-[#695DFF] rounded-[5px] text-white mt-[100px] w-[375px] h-[50px]"
+          }
+          onClick={present}
+        >
+          {checkedafter?.Device_type == "usdt" ? "立即提交" : "立即充值"}
+        </Button>
       </section>
     </>
   );
