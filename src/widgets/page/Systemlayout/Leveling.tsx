@@ -22,11 +22,13 @@ const App = (props: { tblType: string }) => {
   const [riseinprice, setriseinprice] = useState(0); //价格
   const [tasktype, settasktype] = useState(""); //选中类型后
   const [onmode, setonmode] = useState(""); //上号方式选中后
+  const [gametitle, setgametitle] = useState(""); //游戏名称sid
 
   const modalRef = useRef<any>(null); //弹窗dom
 
   const [Name, setName] = useState(""); //活动名称
   const [Url, setUrl] = useState(""); //活动链接
+  const [sid, setsid] = useState(""); //关联活动
   const [Riodsmle, setRiodsmle] = useState(0); //添加活动类型
 
   useEffect(() => {
@@ -35,13 +37,13 @@ const App = (props: { tblType: string }) => {
         setgameSlet(res.data);
       }
     });
-    sletxuanran();
   }, []);
-  const sletxuanran = () => {
+  const sletxuanran = (val: string) => {
     //下拉渲染
     OuprowebGet({
       Pagenum: "1",
       Pagesize: "999",
+      sid: val,
     }).then((res: any) => {
       if (res.code == 200) {
         settrendingPlaces(res.data);
@@ -90,16 +92,17 @@ const App = (props: { tblType: string }) => {
   };
   const handleAffirm = () => {
     //添加确定按钮
-    if (Url && Name) {
+    if (Url && Name && sid) {
       OuprowebAdd({
         Username: Logininformation.username,
         Usersid: Logininformation.sid,
         Url,
         Name,
+        sid,
       }).then((res: any) => {
         if (res.code == 200) {
           message.success("操作成功");
-          sletxuanran();
+          sletxuanran(gametitle);
           modalRef.current?.popupstate(false);
         }
       });
@@ -234,13 +237,26 @@ const App = (props: { tblType: string }) => {
             <Row gutter={24}>
               <Col span={12}>
                 <Form.Item
-                  name="Lbgamename"
+                  name={props.tblType == "鲁币" ? "Lbgamename" : "Gname"}
                   label="游戏名称"
                   rules={[{ required: true, message: "请选择游戏名称" }]}
                 >
-                  <Select size="large" placeholder="请选择游戏名称">
+                  <Select
+                    onChange={(val) => {
+                      if (props.tblType == "鲁币") {
+                        form.resetFields(["Lbhd"]);
+                        const fliiter: any = gameSlet.filter((item: any) => {
+                          return item.Device_Name == val;
+                        });
+                        sletxuanran(fliiter[0]?.Device_Sid);
+                        setgametitle(val);
+                      }
+                    }}
+                    size="large"
+                    placeholder="请选择游戏名称"
+                  >
                     {gameSlet.map((item: any, index) => (
-                      <Option key={index} value={item.Device_Sid}>
+                      <Option key={index} value={item.Device_Name}>
                         {item.Device_Name}
                       </Option>
                     ))}
@@ -385,10 +401,12 @@ const App = (props: { tblType: string }) => {
             )}
           </>
         )}
-        <div className=" text-[#172B53] bg-[#e7ecff]  p-[20px] ">
-          预估费用：
-          <strong className=" text-[red] ">{riseinprice ?? "-"}</strong>
-        </div>
+        {props.tblType !== "鲁币" && (
+          <div className=" text-[#172B53] bg-[#e7ecff]  p-[20px] ">
+            预估费用：
+            <strong className=" text-[red] ">{riseinprice ?? "-"}</strong>
+          </div>
+        )}
         <Form.Item>
           <Button
             className=" bg-[#5C7FFF] w-[240px] mt-[40px] h-[46px] "
@@ -434,9 +452,11 @@ const App = (props: { tblType: string }) => {
           </li>
           <li>
             <p className="hdname">关联游戏：</p>
-            <Select onChange={((val) => {
-              console.log(val,'vvvvvavavav');
-            })} className=" w-full" placeholder="请选择游戏名称">
+            <Select
+              onChange={(val) => setsid(val)}
+              className=" w-full"
+              placeholder="请选择游戏名称"
+            >
               {gameSlet.map((item: any, index) => (
                 <Option key={index} value={item.Device_Sid}>
                   {item.Device_Name}

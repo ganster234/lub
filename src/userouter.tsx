@@ -8,6 +8,7 @@ const Figure = lazy(() => import("./widgets/page/Figure")); //封装表格试列
 const Home = lazy(() => import("./widgets/page/Home/index.tsx")); //首页
 const USTD = lazy(() => import("./widgets/page/Ustd/index.tsx")); //资金管理
 const Systemlayout = lazy(() => import("./widgets/page/Systemlayout")); //我要发单
+const Personaldetails = lazy(() => import("./widgets/page/Personaldetails")); //修改个人信息
 const FundManagement = lazy(
   () => import("./pages/FundManagement/FundManagement")
 );
@@ -32,6 +33,15 @@ const routeConfig = [
       </Suspense>
     ),
   },
+  {
+    path: "/personaldetails",
+    element: (
+      <Suspense fallback={<div>⌛加载中...</div>}>
+        <Personaldetails />
+      </Suspense>
+    ),
+  },
+
   {
     path: "/systemlayout",
     element: (

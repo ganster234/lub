@@ -63,3 +63,27 @@ export const Figuretable = [
     dataIndex: "Device_time",
   },
 ];
+
+//首页数据
+export const homeArr = [
+  {
+    name: "全部订单",
+    imgge: "/homeimg/orderall.png",
+    num: 126,
+  },
+  {
+    name: "练级",
+    imgge: "/homeimg/lvimg.png",
+    num: 6,
+  },
+  {
+    name: "撸币",
+    imgge: "/homeimg/lubimg.png",
+    num: 23,
+  },
+  {
+    name: "拉新",
+    imgge: "/homeimg/laXimg.png",
+    num: 16,
+  },
+];

@@ -8,6 +8,7 @@ import {
   FullscreenExitOutlined,
   DownOutlined,
   LogoutOutlined,
+  FormOutlined,
 } from "@ant-design/icons";
 import {
   Button,
@@ -27,15 +28,23 @@ const Afterlogging = () => {
   const [collapsed, setCollapsed] = useState(false); //菜单关闭与展开
   const [amplification, setamplification] = useState(false); //是否放大页面
   const [information, setinformation] = useState<any>({}); //用户信息
+  const [routeUrl, setrouteUrl] = useState("/");  //路由信息
   const {
     token: { colorBgContainer },
   } = theme.useToken();
+  useEffect(() => {}, []);
   useEffect(() => {
     apiuserinfo().then((res: any) => {
       if (res.code == 200) {
         setinformation(res.data[0]);
       }
     });
+    setrouteUrl(window.location.pathname)
+    const unlisten = route.subscribe(({ location }) => {
+      setrouteUrl(location.pathname)
+    });
+
+    return () => unlisten(); // 清理订阅
   }, []);
   const bigandSmle = (val: string) => {
     if (val === "放大") {
@@ -148,6 +157,14 @@ const Afterlogging = () => {
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className=" rounded-md ">
+                    <div className="px-1 py-2">
+                      <p
+                        onClick={() => {}}
+                        className="logOff h-[20px] cursor-pointer hover:text-[red]"
+                      >
+                        <FormOutlined /> 个人信息
+                      </p>
+                    </div>
                     <div className="px-1 py-1">
                       <p
                         onClick={() => {
@@ -171,7 +188,7 @@ const Afterlogging = () => {
               margin: windowWidth > 600 ? "20px 16px" : "8px",
               padding: windowWidth > 600 ? 20 : 8,
               minHeight: 280,
-              background: colorBgContainer,
+              background: routeUrl == '/' ? '': colorBgContainer,
             }}
           >
             <RouterProvider router={route} />

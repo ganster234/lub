@@ -1,0 +1,67 @@
+.topbox {
+  border-bottom: 2px solid #EBEAF3;
+  padding-bottom: 15px;
+  display: flex;
+}
+.topbox .herdimg {
+  min-width: 72px;
+  min-height: 72px;
+  background: #F4F6FD;
+  border-radius: 50%;
+  text-align: center;
+  line-height: 72px;
+  color: #5C7FFF;
+  font-weight: bold;
+  font-size: 20px;
+}
+.topbox .userPanel {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-left: 20px;
+}
+.userModule {
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.userModule .li {
+  margin-top: 10px;
+  border-radius: 8px;
+  padding: 16px;
+  background: #F4F6FD;
+  width: 124px;
+  height: 90px;
+}
+@media (max-width: 1025px) {
+  .navbox {
+    flex-wrap: wrap !important;
+  }
+  .legtBox {
+    width: 100% !important;
+    margin-bottom: 20px;
+    margin-right: 0;
+  }
+}
+@media (max-width: 805px) {
+  .li {
+    width: 95px !important;
+    padding: 6px !important;
+    height: 70px !important;
+  }
+}
+@media (max-width: 704px) {
+  .selectionsing {
+    flex-wrap: wrap;
+  }
+  .selectionsing .cardbox {
+    margin-right: 0 !important;
+    margin-bottom: 10px;
+    height: 170px !important;
+  }
+  .echarsbox {
+    flex-wrap: wrap;
+  }
+}

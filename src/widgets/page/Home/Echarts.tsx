@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import { Card, CardBody } from "@nextui-org/react";
 import * as echarts from "echarts";
 
 const Chart: React.FC = () => {
@@ -8,7 +9,6 @@ const Chart: React.FC = () => {
   useEffect(() => {
     let pieChart: echarts.ECharts | null = null;
     let lineChart: echarts.ECharts | null = null;
-
     // 初始化饼图
     if (pieChartRef.current) {
       pieChart = echarts.init(pieChartRef.current);
@@ -16,24 +16,24 @@ const Chart: React.FC = () => {
         tooltip: {
           trigger: "item",
         },
-        legend: {
-          bottom: "5%",
-          left: "center",
-        },
+        legend: {},
         series: [
           {
             name: "订单类型",
             type: "pie",
-            radius: ["40%", "70%"], // 内外环半径
+            radius: ["50%", "70%"], // 内外环半径
             label: {
-              formatter: "{b}: {d}%",
-              color: "#666",
-              fontSize: 14,
+              fontSize: 18,
+              position: "center",
+            },
+            labelLine: {
+              show: true,
             },
             data: [
               { value: 25, name: "拉新订单" },
-              { value: 50, name: "领券订单" },
-              { value: 25, name: "储值订单" },
+              { value: 50, name: "领QB订单" },
+              { value: 25, name: "练级订单" },
+              
             ],
             emphasis: {
               itemStyle: {
@@ -58,7 +58,7 @@ const Chart: React.FC = () => {
         xAxis: {
           type: "category",
           boundaryGap: false,
-          data: ["6日", "7日", "8日", "9日", "10日", "11日", "12日"],
+          data: ["周一", "周二", "周三", "周四", "周五", "周五", "周六"],
           axisLabel: {
             fontSize: 12,
           },
@@ -71,7 +71,7 @@ const Chart: React.FC = () => {
         },
         series: [
           {
-            name: "营业额",
+            name: "余额",
             type: "line",
             smooth: true, // 平滑线
             data: [200, 820, 540, 1000, 560, 820, 600],
@@ -112,31 +112,26 @@ const Chart: React.FC = () => {
   }, []);
 
   return (
-    <div
-      style={{
-        display: "flex",
-        gap: "20px",
-        padding: "10px",
-      }}
-    >
-      {/* 饼图 */}
-      <div
-        ref={pieChartRef}
-        style={{
-          width: "100%",
-          height: "300px",
-        }}
-      ></div>
-
-      {/* 折线图 */}
-      <div
-        ref={lineChartRef}
-        style={{
-          width: "100%",
-          height: "300px",
-        }}
-      ></div>
-    </div>
+    <Card className=" w-full ">
+      <div className="flex echarsbox">
+        {/* 饼图 */}
+        <div
+          ref={pieChartRef}
+          style={{
+            width: "100%",
+            height: "300px",
+          }}
+        ></div>
+        {/* 折线图 */}
+        <div
+          ref={lineChartRef}
+          style={{
+            width: "100%",
+            height: "300px",
+          }}
+        ></div>
+      </div>
+    </Card>
   );
 };
 

@@ -50,6 +50,7 @@ export const menuConfig = [
     key: "/",
     icon: "receipt",
   },
+
   {
     label: "我要发单",
     key: "/systemlayout",
@@ -65,6 +66,11 @@ export const menuConfig = [
     label: "订单管理",
     key: "/order-management",
     icon: "orderImg",
+  },
+  {
+    label: "个人信息",
+    key: "/personaldetails",
+    icon: "userimg",
   },
   {
     label: "资金列表",
